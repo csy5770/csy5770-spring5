@@ -37,7 +37,9 @@ public class Step1 extends Object {
 	private static void printMember(String[] names, int[] ages, String[] phoneNums) {
 		// for 반복문으로 3개를 한번에 출력
 		int dataLength = names.length;
-		int 
+		for(int i=0; i<dataLength; i++) {
+			System.out.println("입력하신 회원의 이름은 "+names[i]+"님, 나이는 "+ages[i]+", 폰번호는 "+phoneNums[i]);
+		}
 	}
 
 	private static void printMember(String name, int age, String phoneNum) {
