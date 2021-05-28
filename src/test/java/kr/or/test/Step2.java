@@ -57,6 +57,13 @@ public class Step2 {
 		//출력도 메서드를 바로 호출하지 않고, 외부 클래스에서 메서드를 호출합니다.
 		MemberService memberService = new MemberService();
 		memberService.printMember(members);
+		//외부클래스는 아래처럼 직접 접근해서 메서드나 변수를 사용할 수 없음.
+		//외부클래스로 접근하려면, 객체(실행가능한=메모리로딩)로 만들어야 가능함.
+		//static 예약어는 컴파일 시 메모리에 로딩이 되게 명시.
+		//매번 static으로 만들면 메모리 과부하 때문에 오류가 발생할 수 있음.
+		//public static void printMember(MemberVO[] members) {}
+		//MemberService.printMember(members);
+		
 	}
 }
 class MemberService {
