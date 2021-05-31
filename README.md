@@ -1,6 +1,9 @@
 #### 20210531(월) 작업예정.
+- 오라클: 테이블스페이스(TableSpace) = 스키마(scheme:Mysql) = 데이터베이스(DB, MS-SQL)
 - 4장 패키지와 예외처리 실습.
 - 스프링프로젝트 ERD 제작 후 게시판 UI 디자인 적용.
+- EntityRelationDiagram(ERD-객체관계그림)
+- 데이터 모델 : Model
 
 #### 20210528(금) 작업예정.
 - 오라클11g ExpressEditon 설치예정. OracleXE112_Win64.zip
