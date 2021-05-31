@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D2E94317-3782-372E-74E9-83BE307680C1" name="TBL_BOARD">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:44:28 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<ordsAlias>table_9</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BNO" id="F09043E9-34B0-B732-2581-5F4D0F4C4425">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:45:19 UTC</createdTime>
+<commentInRDBMS><![CDATA[게시판 고유번호(자동증가처리)]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>11</dataTypePrecision>
+<ownDataTypeParameters>,11,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TITLE" id="2EC41488-8474-80A9-995E-F0D9ECA148DC">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:45:56 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTENT" id="54E9EB04-6320-B3D7-DD04-090A4A387C8F">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:50:43 UTC</createdTime>
+<commentInRDBMS><![CDATA[글내용]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WRITER" id="04EE3B7E-19A2-72AC-3C08-72EDFECE347E">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:50:43 UTC</createdTime>
+<commentInRDBMS><![CDATA[글작성자]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VIEW_COUNT" id="53CAEE66-5298-C31B-6DE6-4CBABFAD3026">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:50:43 UTC</createdTime>
+<commentInRDBMS><![CDATA[글 조회수 카운터]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPLY_COUNT" id="7608B471-E019-5222-D906-FB2338C8FB37">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:50:43 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0D5CA7FD-130B-F7A2-5C9D-F348B22B3B2B" name="BNO_PK">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 02:46:25 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F09043E9-34B0-B732-2581-5F4D0F4C4425"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
