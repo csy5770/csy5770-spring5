@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="TBL_ATTACH" directorySegmentName="seg_0" id="F5E60D4D-14CE-82E8-F7C2-15FBD9D3B7C6">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 04:57:57 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="REAL_FILE_NAME" id="03AA8C8A-EEEA-B833-004D-5BA97B4EFA4F">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 05:00:08 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BNO" id="45DC0506-892E-17B6-6A40-0C530EC6BC10">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 05:06:31 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REG_DATE" id="B4AF4616-5477-1E24-F234-986AF06E9C0E">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 05:04:14 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SAVE_FILE_NAME" id="EEF7305C-1206-8114-C61B-466EE79A4021">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 04:59:18 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="TBL_ATTACH_TBL_BOARD_FK" id="9391BC8D-018C-BEE0-4389-464BE02A35F3">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 05:06:46 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="TBL_ATTACH_PK" id="C396009B-BBC8-A41A-2E22-B4E0DD002766">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 05:00:08 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>
