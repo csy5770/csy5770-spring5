@@ -2,6 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D2E94317-3782-372E-74E9-83BE307680C1" name="TBL_BOARD">
 <createdBy>yush</createdBy>
 <createdTime>2021-05-31 02:44:28 UTC</createdTime>
+<commentInRDBMS><![CDATA[게시물관리테이블]]></commentInRDBMS>
 <ownerDesignName>SPRING5</ownerDesignName>
 <ordsAlias>table_9</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
@@ -23,6 +24,7 @@
 <Column name="TITLE" id="2EC41488-8474-80A9-995E-F0D9ECA148DC">
 <createdBy>yush</createdBy>
 <createdTime>2021-05-31 02:45:56 UTC</createdTime>
+<commentInRDBMS><![CDATA[게시물제목]]></commentInRDBMS>
 <ownerDesignName>SPRING5</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -72,17 +74,59 @@
 <Column name="REPLY_COUNT" id="7608B471-E019-5222-D906-FB2338C8FB37">
 <createdBy>yush</createdBy>
 <createdTime>2021-05-31 02:50:43 UTC</createdTime>
+<commentInRDBMS><![CDATA[댓글카운트]]></commentInRDBMS>
 <ownerDesignName>SPRING5</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>11</dataTypePrecision>
+<ownDataTypeParameters>,11,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REG_DATE" id="BF41A6A9-F0F1-58CA-A870-1FEB78B047E5">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 03:03:23 UTC</createdTime>
+<commentInRDBMS><![CDATA[등록일시]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="UPDATE_DATE" id="CA0C09FB-F3C3-5B30-0B59-1417D490E988">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 03:04:10 UTC</createdTime>
+<commentInRDBMS><![CDATA[수정일시]]></commentInRDBMS>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TBL_BOARD_TYPE_BOARD_TYPE" id="8DC87811-BC70-8886-5827-0224C1E3BF6E">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 03:11:48 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D7BB1E89-2259-1842-0613-3B543D44D1D2" referredColumn="1E37A87B-8577-8FC1-2881-07735C130D48"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="0D5CA7FD-130B-F7A2-5C9D-F348B22B3B2B" name="BNO_PK">
+<ind_PK_UK id="0D5CA7FD-130B-F7A2-5C9D-F348B22B3B2B" name="TBL_BNO_PK">
 <createdBy>yush</createdBy>
 <createdTime>2021-05-31 02:46:25 UTC</createdTime>
 <ownerDesignName>SPRING5</ownerDesignName>
@@ -91,6 +135,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="F09043E9-34B0-B732-2581-5F4D0F4C4425"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AF5131BF-9492-20FB-4BEF-040C7126309D" name="TBL_BOARD_TBL_BOARD_TYPE_FK">
+<createdBy>yush</createdBy>
+<createdTime>2021-05-31 03:11:48 UTC</createdTime>
+<ownerDesignName>SPRING5</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8DC87811-BC70-8886-5827-0224C1E3BF6E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
