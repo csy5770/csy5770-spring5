@@ -1,5 +1,8 @@
 package com.edu.controller;
+//외부 라이브러리(모듈) 사용 = import
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,7 @@ public class HomeController {
 	//스프링빈(클래스) 에서는 로거로 디버그를 함 = 로거 객체 생성
 	//로그중 slf4j(Spring Log For Java)
 	//private Logger logger = Logger.
-	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
 	 * 사용자요청(웹브라우저)을 받아서=@RequestMapping 인터페이스를 사용해서 메서드명을 스프링이 구현, router(루트root아님)
@@ -29,8 +32,9 @@ public class HomeController {
 	public String home(Model model) { //콜백메서드, 자동실행.
 		String jspVar = "@서비스(DB)에서 처리한 결과";
 		model.addAttribute("jspObject", jspVar );
+		logger.info("디버그 스프링로고사용: " + jspVar);//System.out 대신 logger 객체를 사용.
 		//home.jsp 파일로 자료를 전송하는 기능 model 인터페이스 객체(스프링이 처리)에 내용만 채우면 됨.
-		return "home";//확장자가 생략 (.jsp)가 생략되어 있음.
+		return "home/index";//확장자가 생략 (.jsp)가 생략되어 있음.
 	}
 	
 }

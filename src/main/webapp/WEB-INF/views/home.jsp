@@ -12,6 +12,6 @@
 
 <P>  The time on the server is 
 <!--  jsp에서 컨트롤러에서 넘어온 자료Object를 출력합니다.  -->
-${jspObject}.</P>
+${jspObject}</P>
 </body>
 </html>
