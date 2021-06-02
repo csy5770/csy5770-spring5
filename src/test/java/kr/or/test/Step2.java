@@ -9,6 +9,12 @@ class MemberVO{
 	private String name;
 	private int age;
 	private String phoneNum;
+	//하나씩 출력하기 힘들 때 자동으로 멤버변수 값을 출력하는 명령 toString 생성
+	@Override
+	public String toString() {
+		return "MemberVO [name=" + name + ", age=" + age + ", phoneNum=" + phoneNum + "]";
+	}
+	
 	//위 프라이빗 멤버변수를 입출력을 구현하는 메서드를 만듭니다.
 	public String getName() {
 		return name;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 	
 	@RequestMapping(value="/admin", method =RequestMethod.GET)
-	public String admin(Model model) {
+	public String admin(Model model) throws Exception{//에러 발생시 Exception을 스프링으로 보내게 됩니다.
 		
 		//아래 상대경로에서 /WEB-INF/views/폴더가 루트(생략됨 prefix 사용해서)
 		//아래 상대경로에서 home.jsp 중 .jsp(생략됨 suffix 사용해서)
