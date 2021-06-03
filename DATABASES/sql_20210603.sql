@@ -1,56 +1,56 @@
---DESC: Description Å×ÀÌºí ±¸Á¶¸¦ ¼³¸í
+--DESC: Description í…Œì´ë¸” êµ¬ì¡°ë¥¼ ì„¤ëª…
 DESC dept;
 
---SELECT: Å×ÀÌºí³»¿ëÁ¶È¸, where Á¶È¸Á¶°Ç, as(Alias)º°Äª: ÇÊµå¸íÀÌ ±æ ¶§ »ç¿ë.
---concat: ¿À¶óÅ¬ ³»Àå ÇÔ¼ö. ÁÖ·Î ·¹Æ÷Æ® ÀÛ¼º½Ã ¸¹ÀÌ ¾¸.
-SELECT concat(deptno,'¹ø') as "ºÎ¼­¹øÈ£"
-, dname as "ºÎ¼­¸í" 
-, concat(loc, '½Ã') as "À§Ä¡"
+--SELECT: í…Œì´ë¸”ë‚´ìš©ì¡°íšŒ, where ì¡°íšŒì¡°ê±´, as(Alias)ë³„ì¹­: í•„ë“œëª…ì´ ê¸¸ ë•Œ ì‚¬ìš©.
+--concat: ì˜¤ë¼í´ ë‚´ìž¥ í•¨ìˆ˜. ì£¼ë¡œ ë ˆí¬íŠ¸ ìž‘ì„±ì‹œ ë§Žì´ ì”€.
+SELECT concat(deptno,'ë²ˆ') as "ë¶€ì„œë²ˆí˜¸"
+, dname as "ë¶€ì„œëª…" 
+, concat(loc, 'ì‹œ') as "ìœ„ì¹˜"
 FROM dept 
 WHERE loc = 'NEW YORK';
---DUAL °¡»óÅ×ÀÌºí ÀÌ¸§. Å×ÀÌºíÀÌ ¾ø´Â ³»¿ëÀ» select ÇÒ ¶§ »ç¿ë.
-SELECT concat('Àå','È¿¿ø') FROM dual;
-SELECT 3+5 as "3 ´õÇÏ±â 8Àº" FROM dual;
---WHERE select¹® ¸¶Áö¸·¿¡ ¾µ ¼ö ÀÖÀ½. ·¹ÄÚµå¸¸ °Ë»öÇÒ ¶§ ¾²ÀÓ.
---·¹ÄÚµå(row) ÇÑ ÁÙ.: ÄÃ·³(ÇÊµå|field)µé·Î ÀÌ·ç¾îÁ®ÀÖÀ½.
-SELECT concat(count(*),'¸í') as "¿¬ºÀÀÌ 2000ÀÌ»óÀÎ Á÷¿ø"  FROM emp WHERE sal > 2000;
---Å«µû¿ÈÇ¥(ÇÊµå¸í), ÀÛÀºµû¿ÈÇ¥(¹®ÀÚ,³¯Â¥)
-SELECT * FROM emp WHERE ename != 'KING'; -- != ~°¡ ¾Æ´Ñ°Í. NOT(<>·Îµµ ¾µ ¼ö ÀÖÀ½)
-SELECT * FROM emp WHERE hiredate >= '1982/01/01'; --³¯Â¥ºñ±³ hiredate
-SELECT * FROM emp WHERE deptno = 10 AND job = 'MANAGER'; -- AND ±³ÁýÇÕ
-SELECT * FROM emp WHERE deptno = 10 OR job = 'MANAGER'; --OR ÇÕÁýÇÕ
-SELECT * FROM emp WHERE sal BETWEEN 2000 AND 3000; -- ¹Ý´ë: NOT BETWEEN
+--DUAL ê°€ìƒí…Œì´ë¸” ì´ë¦„. í…Œì´ë¸”ì´ ì—†ëŠ” ë‚´ìš©ì„ select í•  ë•Œ ì‚¬ìš©.
+SELECT concat('ìž¥','íš¨ì›') FROM dual;
+SELECT 3+5 as "3 ë”í•˜ê¸° 8ì€" FROM dual;
+--WHERE selectë¬¸ ë§ˆì§€ë§‰ì— ì“¸ ìˆ˜ ìžˆìŒ. ë ˆì½”ë“œë§Œ ê²€ìƒ‰í•  ë•Œ ì“°ìž„.
+--ë ˆì½”ë“œ(row) í•œ ì¤„.: ì»¬ëŸ¼(í•„ë“œ|field)ë“¤ë¡œ ì´ë£¨ì–´ì ¸ìžˆìŒ.
+SELECT concat(count(*),'ëª…') as "ì—°ë´‰ì´ 2000ì´ìƒì¸ ì§ì›"  FROM emp WHERE sal > 2000;
+--í°ë”°ì˜´í‘œ(í•„ë“œëª…), ìž‘ì€ë”°ì˜´í‘œ(ë¬¸ìž,ë‚ ì§œ)
+SELECT * FROM emp WHERE ename != 'KING'; -- != ~ê°€ ì•„ë‹Œê²ƒ. NOT(<>ë¡œë„ ì“¸ ìˆ˜ ìžˆìŒ)
+SELECT * FROM emp WHERE hiredate >= '1982/01/01'; --ë‚ ì§œë¹„êµ hiredate
+SELECT * FROM emp WHERE deptno = 10 AND job = 'MANAGER'; -- AND êµì§‘í•©
+SELECT * FROM emp WHERE deptno = 10 OR job = 'MANAGER'; --OR í•©ì§‘í•©
+SELECT * FROM emp WHERE sal BETWEEN 2000 AND 3000; -- ë°˜ëŒ€: NOT BETWEEN
 SELECT * FROM emp WHERE hiredate NOT BETWEEN '1981/01/01' AND '1981/12/31';
-SELECT * FROM emp WHERE comm IN (300,500,1400); --IN Á¶°ÇÀÌ ¿©·¯°³ÀÏ¶§, ¹Ý´ë: NOT IN
---LIKE Á¶È¸, ¿ÍÀÏµåÄ«µå(%) Á¶È¸(ºÎºÐÁ¶È¸)
-SELECT * FROM emp WHERE ename LIKE upper('f%'); --n%¾Õ±ÛÀÚ¸¸ Æ÷ÇÔ.upper¼Ò¹®ÀÚ¸¦ ´ë¹®ÀÚ·Î °Ë»ö.
-SELECT * FROM emp WHERE ename LIKE lower('%K'); --%nµÞ±ÛÀÚ¸¸ Æ÷ÇÔ.lower´ë¹®ÀÚ¸¦ ¼Ò¹®ÀÚ·Î °Ë»ö
---NULLÀÇ Áß¿ä¼º: null°ªÀÌ ÀÖÀ¸¸é °Ë»öÀÌ ¾ÈµÊ.
---NULL°ªÀÌ ÀÖÀ»¶§ °Ë»ö¹æ¹ý(¾Æ·¡)
-SELECT * FROM emp WHERE comm IS NULL; -- IS NULL·Î null°ªÀÌ ÀÖ´ÂÁö È®ÀÎ ¹æ¹ý.
---NVL(Null VaLue)³Î °ªÀ» ´ëÄ¡ÇÏ´Â ÇÔ¼ö
---»ç¿øÁß¿¡ Ä¿¹Ì¼ÇÀ» 0¿ø ¹Þ°í ÇÑ »ç¶÷ Áß °ªÀÌ nullÀÎ »ç¶÷±îÁö °Ë»öÇÏ´Â ¹ý.
+SELECT * FROM emp WHERE comm IN (300,500,1400); --IN ì¡°ê±´ì´ ì—¬ëŸ¬ê°œì¼ë•Œ, ë°˜ëŒ€: NOT IN
+--LIKE ì¡°íšŒ, ì™€ì¼ë“œì¹´ë“œ(%) ì¡°íšŒ(ë¶€ë¶„ì¡°íšŒ)
+SELECT * FROM emp WHERE ename LIKE upper('f%'); --n%ì•žê¸€ìžë§Œ í¬í•¨.upperì†Œë¬¸ìžë¥¼ ëŒ€ë¬¸ìžë¡œ ê²€ìƒ‰.
+SELECT * FROM emp WHERE ename LIKE lower('%K'); --%në’·ê¸€ìžë§Œ í¬í•¨.lowerëŒ€ë¬¸ìžë¥¼ ì†Œë¬¸ìžë¡œ ê²€ìƒ‰
+--NULLì˜ ì¤‘ìš”ì„±: nullê°’ì´ ìžˆìœ¼ë©´ ê²€ìƒ‰ì´ ì•ˆë¨.
+--NULLê°’ì´ ìžˆì„ë•Œ ê²€ìƒ‰ë°©ë²•(ì•„ëž˜)
+SELECT * FROM emp WHERE comm IS NULL; -- IS NULLë¡œ nullê°’ì´ ìžˆëŠ”ì§€ í™•ì¸ ë°©ë²•.
+--NVL(Null VaLue)ë„ ê°’ì„ ëŒ€ì¹˜í•˜ëŠ” í•¨ìˆ˜
+--ì‚¬ì›ì¤‘ì— ì»¤ë¯¸ì…˜ì„ 0ì› ë°›ê³  í•œ ì‚¬ëžŒ ì¤‘ ê°’ì´ nullì¸ ì‚¬ëžŒê¹Œì§€ ê²€ìƒ‰í•˜ëŠ” ë²•.
 SELECT * FROM emp WHERE NVL(comm,0) = 0;
-SELECT NVL(comm,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL(comm,0)ÄÃ·³À» ¸¸µé¾î¼­ null°ª¿¡ 0À» ³Ö¾î¼­ Ãâ·Â
-SELECT NVL2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL2(ÇÊµå¿¡¼­,nullÀÌ¸é 0,nullÀÌ ¾Æ´Ï¸é 100)
---as E°¡ ¿À·ù³² = E¸¸ ¾¸,¿À¶óÅ¬Àº Ç¥ÁØ Äõ¸®°¡ ¾Æ´Ï¶ó¼­. ANSIÄõ¸®°¡ Ç¥ÁØ.
---DECODE(ÇÊµå°¡,nullÀÏ ¶§,0À¸·Î Ã¤¿ì°í,³ÎÀÌ ¾Æ´Ò¶§ ÀÌ °ªÀ» ³ÖÀ½)=NVL°ú NVL2°¡ ÇÕÃÄÁø ÇÔ¼ö
+SELECT NVL(comm,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL(comm,0)ì»¬ëŸ¼ì„ ë§Œë“¤ì–´ì„œ nullê°’ì— 0ì„ ë„£ì–´ì„œ ì¶œë ¥
+SELECT NVL2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL2(í•„ë“œì—ì„œ,nullì´ë©´ 0,nullì´ ì•„ë‹ˆë©´ 100)
+--as Eê°€ ì˜¤ë¥˜ë‚¨ = Eë§Œ ì”€,ì˜¤ë¼í´ì€ í‘œì¤€ ì¿¼ë¦¬ê°€ ì•„ë‹ˆë¼ì„œ. ANSIì¿¼ë¦¬ê°€ í‘œì¤€.
+--DECODE(í•„ë“œê°€,nullì¼ ë•Œ,0ìœ¼ë¡œ ì±„ìš°ê³ ,ë„ì´ ì•„ë‹ë•Œ ì´ ê°’ì„ ë„£ìŒ)=NVLê³¼ NVL2ê°€ í•©ì³ì§„ í•¨ìˆ˜
 SELECT DECODE(comm,null,0,comm), E.* FROM emp E WHERE NVL(comm,0) = 0;
---¿¬ºÀ ±âÁØÀ¸·Î Á¤·Ä sort = ¼ø¼­ order by ÇÊµå¸í ¿À¸§Â÷¼ø[ÃÊ±â°ª]|DESC ³»¸²Â÷¼ø
-SELECT * FROM emp ORDER BY sal; --¿À¸§Â÷¼ø
-SELECT * FROM emp ORDER BY sal DESC; --³»¸²Â÷¼ø
-SELECT sal, E.* FROM emp E ORDER BY E.sal; --salÀ» ¸Ç ¾ÕÀ¸·Î ºÒ·¯¼­ ¿À¸§Â÷¼ø
---À§ Á¤·Ä¿¡¼­ 1µî¸¸ ±¸ÇÒ limit´Â Mysql(¸¶¸®¾ÆDB)¿¡ ÀÖ´Â ¸í·É¾îÀÔ´Ï´Ù.(¿À¶óÅ¬¿£ ¾øÀ½)
---ÀÚµ¿Áõ°¡°ª(AI)µµ ¿À¶óÅ¬¿¡ ¾øÀ½.
-SELECT ROWNUM, E.* FROM (--Å×ÀÌºí¸í
+--ì—°ë´‰ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬ sort = ìˆœì„œ order by í•„ë“œëª… ì˜¤ë¦„ì°¨ìˆœ[ì´ˆê¸°ê°’]|DESC ë‚´ë¦¼ì°¨ìˆœ
+SELECT * FROM emp ORDER BY sal; --ì˜¤ë¦„ì°¨ìˆœ
+SELECT * FROM emp ORDER BY sal DESC; --ë‚´ë¦¼ì°¨ìˆœ
+SELECT sal, E.* FROM emp E ORDER BY E.sal; --salì„ ë§¨ ì•žìœ¼ë¡œ ë¶ˆëŸ¬ì„œ ì˜¤ë¦„ì°¨ìˆœ
+--ìœ„ ì •ë ¬ì—ì„œ 1ë“±ë§Œ êµ¬í•  limitëŠ” Mysql(ë§ˆë¦¬ì•„DB)ì— ìžˆëŠ” ëª…ë ¹ì–´ìž…ë‹ˆë‹¤.(ì˜¤ë¼í´ì—” ì—†ìŒ)
+--ìžë™ì¦ê°€ê°’(AI)ë„ ì˜¤ë¼í´ì— ì—†ìŒ.
+SELECT ROWNUM, E.* FROM (--í…Œì´ë¸”ëª…
 SELECT * FROM emp ORDER BY sal DESC
-) E WHERE ROWNUM = 1; --³»¸²Â÷¼øÀ¸·Î ¿¬ºÀÀÌ ¸¹Àº »ç¶÷ºÎÅÍ ÀûÀº ¼øÀ¸·Î Á¤·Ä.
---À§¿Í °°Àº ¼­ºêÄõ¸® ¹®Àå ÇØ¼®Àº ³»ºÎºÎÅÍ ÇÕ´Ï´Ù.
---ROWNUM: ¿À¶óÅ¬¿¡¼­ 1µî ±¸ÇÏ´Â ¹ý.
---Áßº¹·¹ÄÚµå(row)¸¦ Á¦°ÅÇÏ´Â ¸í·É¾î distinct(¾Æ·¡)
-SELECT deptno as "ºÎ¼­¹øÈ£" FROM emp; --»ç¿ø¼ö´ë·Î ºÎ¼­¹øÈ£°¡ Ãâ·Â
-SELECT DISTINCT deptno as "ºÎ¼­¹øÈ£" FROM emp; --Áßº¹ Á¦°Å.
--- ¹®ÀÚ¿­À» ¿¬°áÇÒ ¶§ concat ÇÔ¼ö ¿Ü¿¡ ||(ÆÄÀÌÇÁ¶óÀÎ 2°³ °ãÄ§)À¸·Î ±¸Çö
-SELECT ename ||'is a'|| job AS "¹®ÀÚ¿­ ¿¬°á" FROM emp;
---¿©±â±îÁö select ¸¶¹«¸® Read.
---ÀÌÈÄ CRUD Áß¿¡ Insert, Update, Delete 3°³ÀÇ Äõ¸®·Î ½Ç½À ¿¹Á¤
+) E WHERE ROWNUM = 1; --ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì—°ë´‰ì´ ë§Žì€ ì‚¬ëžŒë¶€í„° ì ì€ ìˆœìœ¼ë¡œ ì •ë ¬.
+--ìœ„ì™€ ê°™ì€ ì„œë¸Œì¿¼ë¦¬ ë¬¸ìž¥ í•´ì„ì€ ë‚´ë¶€ë¶€í„° í•©ë‹ˆë‹¤.
+--ROWNUM: ì˜¤ë¼í´ì—ì„œ 1ë“± êµ¬í•˜ëŠ” ë²•.
+--ì¤‘ë³µë ˆì½”ë“œ(row)ë¥¼ ì œê±°í•˜ëŠ” ëª…ë ¹ì–´ distinct(ì•„ëž˜)
+SELECT deptno as "ë¶€ì„œë²ˆí˜¸" FROM emp; --ì‚¬ì›ìˆ˜ëŒ€ë¡œ ë¶€ì„œë²ˆí˜¸ê°€ ì¶œë ¥
+SELECT DISTINCT deptno as "ë¶€ì„œë²ˆí˜¸" FROM emp; --ì¤‘ë³µ ì œê±°.
+-- ë¬¸ìžì—´ì„ ì—°ê²°í•  ë•Œ concat í•¨ìˆ˜ ì™¸ì— ||(íŒŒì´í”„ë¼ì¸ 2ê°œ ê²¹ì¹¨)ìœ¼ë¡œ êµ¬í˜„
+SELECT ename ||'is a'|| job AS "ë¬¸ìžì—´ ì—°ê²°" FROM emp;
+--ì—¬ê¸°ê¹Œì§€ select ë§ˆë¬´ë¦¬ Read.
+--ì´í›„ CRUD ì¤‘ì— Insert, Update, Delete 3ê°œì˜ ì¿¼ë¦¬ë¡œ ì‹¤ìŠµ ì˜ˆì •
