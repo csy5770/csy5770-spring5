@@ -35,11 +35,14 @@ SELECT NVL(comm,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL(comm,0)컬럼을
 SELECT NVL2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL2(필드에서,null이면 0,null이 아니면 100)
 --as E가 오류남 = E만 씀,오라클은 표준 쿼리가 아니라서. ANSI쿼리가 표준.
 --DECODE(필드가,null일 때,0으로 채우고,널이 아닐때 이 값을 넣음)=NVL과 NVL2가 합쳐진 함수
-SELECT DECODE(comm,null,0,comm), E.* FROM emp E WHERE NVL(comm,0) = 0;
-CASE WHEN comm is null THEN 0
+SELECT 
+CASE WHEN comm is null THEN 0 
 WHEN comm = 0 THEN 100
-WHEN comm > 0 THEM comm
-END AS "CASE 출력문"
+WHEN comm > 0 THEN comm
+END AS "CASE출력문"
+,DECODE(comm,null,0,100)
+,NVL2(comm,100,0)
+,E.* FROM emp E;-- WHERE NVL(comm,0) = 0;
 --연봉 기준으로 정렬 sort = 순서 order by 필드명 오름차순[초기값]|DESC 내림차순
 SELECT * FROM emp ORDER BY sal; --오름차순
 SELECT * FROM emp ORDER BY sal DESC; --내림차순
