@@ -1,3 +1,6 @@
+--8장 함수(count,upper,lower,to_char,round...) 그룹 함수
+SELECT ename, sal FROM emp;
+
 --DDL문(Create; alter;), DCL문(commit; rollback;)
 --DML문(Data Manufacture Language) insert,update,delete
 --insert문:테이블에 새로운 레코드(row) 추가
@@ -19,3 +22,12 @@ SELECT * FROM dept02 ORDER BY deptno;
 --DELETE 는 레코드 1행을 지우는 명령
 DELETE FROM dept02; -- 이렇게 사용하면 안됨.
 DELETE FROM dept02 WHERE deptno >= 0;--모두 삭제 where 반드시 포함.
+--DROP table 테이블명 은 테이블자체를 물리적으로 없애는 명령
+DROP TABLE dept02; --드롭 테이블은 커밋 없이 바로 적용 됨.
+CREATE TABLE emp01 AS SELECT * FROM emp; -- 테이블 복사 명령
+SELECT * FROM emp01;
+--UPDATE 테이블명 SET 필드명 = '변경할 값' where empno='특정 ID'
+UPDATE emp01 SET ename = '최서영' where empno = 7839;
+ROLLBACK; -- 롤백은 마지막 커밋 바로 전까지 되돌림.
+UPDATE emp01 SET sal = sal * 1.1; --모든 직원의 연봉을 10% 인상.
+UPDATE emp01 SET hiredate = sysdate;

@@ -60,6 +60,8 @@ public class DataSourceTest {
 			logger.debug(rs.getString("deptno")+" "+rs.getString("dname")+
 					" "+rs.getString("loc"));
 		}
+		stmt = null;//메모리 반환
+		rs = null;//메모리 반환
 		connection = null; //메모리 초기화
 	}
 	
