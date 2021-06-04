@@ -53,7 +53,7 @@ public class DataSourceTest {
 		 */
 		//sql 디벨로퍼에서는 커밋이 필수, 외부 java 클래스에서 insert할 때는 자동 커밋이 됨.
 		//테이블에 입력되어 있는 레코드를 select 쿼리 stmt 문장으로 가져옴(아래)
-		ResultSet rs = stmt.executeQuery("select * from dept02 order by deptno");
+		ResultSet rs = stmt.executeQuery("select * from dept order by deptno");
 		//위에서 저장된 rs 객체를 반복문으로 출력(아래)
 		while(rs.next()) {
 			//rs객체의 레코드가 없을 때 까지 반복
