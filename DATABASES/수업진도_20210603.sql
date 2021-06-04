@@ -9,7 +9,7 @@ SELECT concat(deptno,'번') as "부서번호"
 FROM dept 
 WHERE loc = 'NEW YORK';
 --DUAL 가상테이블 이름. 테이블이 없는 내용을 select 할 때 사용.
-SELECT concat('장','효원') FROM dual;
+SELECT concat('최','서영') FROM dual;
 SELECT 3+5 as "3 더하기 8은" FROM dual;
 --WHERE select문 마지막에 쓸 수 있음. 레코드만 검색할 때 쓰임.
 --레코드(row) 한 줄.: 컬럼(필드|field)들로 이루어져있음.
@@ -36,6 +36,10 @@ SELECT NVL2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0; --NVL2(필드에�
 --as E가 오류남 = E만 씀,오라클은 표준 쿼리가 아니라서. ANSI쿼리가 표준.
 --DECODE(필드가,null일 때,0으로 채우고,널이 아닐때 이 값을 넣음)=NVL과 NVL2가 합쳐진 함수
 SELECT DECODE(comm,null,0,comm), E.* FROM emp E WHERE NVL(comm,0) = 0;
+CASE WHEN comm is null THEN 0
+WHEN comm = 0 THEN 100
+WHEN comm > 0 THEM comm
+END AS "CASE 출력문"
 --연봉 기준으로 정렬 sort = 순서 order by 필드명 오름차순[초기값]|DESC 내림차순
 SELECT * FROM emp ORDER BY sal; --오름차순
 SELECT * FROM emp ORDER BY sal DESC; --내림차순
