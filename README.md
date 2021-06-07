@@ -13,7 +13,7 @@
 - 실습용 오라클 DB 암호변경 apmsetup->Apmsetup1234%
 
 ```
---SQL 디펠로퍼에서 
+-- SQL 디벨로퍼 에서 system으로 로그인후 아래 쿼리로 XE2사용를 완벽하게 지우기(아래)
 SELECT * FROM all_users;
 --all_users는 테이블x, 시노님(동의어)
 delete from all_users where username='XE2';
