@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -15,6 +16,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import com.edu.service.IF_MemberService;
+import com.edu.vo.MemberVO;
 
 /**
  * 이 클래스는 오라클과 연동해서 CRUD를 테스트하는 클래스 입니다.
@@ -34,7 +38,8 @@ public class DataSourceTest {
 	@Inject //인젝트는 스프링에서 객체를 만드는 방법, 이전 자바에서는 new 키워드로 객체를 만들었음.
 	DataSource dataSource; //Inject로 객체를 만들면 메모리 관리를 스프링이 대신해 줌.
 	// 자바8부터 Inject 지원. 이전 버전 자바에서는 @Autowired 로 객체를 생성.
-	
+	@Inject //MemberService를 주입받아서 객체를 사용(아래)
+	private IF_MemberService memberService;
 	//스프링 코딩 시작 순서
 	//M-V-C 사이에 데이터를 임시 저장하는 공간(VO 클래스-멤버변호+Get/Set메서드) 생성
 	//보통 ValueObject 클래스는 DB 테이블과 1:1로 매칭이 됩니다.
@@ -42,15 +47,22 @@ public class DataSourceTest {
 	//2.DB(마이바티스)쿼리를 만듭니다.(VO 사용됨) - 내일부터 시작
 	@Test
 	public void selectMember() throws Exception {
-		//회원관리 테이블에서 더미로 입력한 100개의 레코드를 출력하는 메서드 테스트 -> 회원관리 목록이 출력
-		
+		//회원관리 테이블에서 더미로 입력한 100개의 레코드를 출력하는 메서드 테스트 -> 회원관리 목록출력
+		//현재 100명 검색가능, 페이징 기능 여기서 구현 1페이지에 10명씩 나오게 변경
+		//현재 몇페이지, 검색어 임시저장 공간 -> DB에 페이징 조건문, 검색조건문
+		//변수를 2-3 이상은 바로 String 변수로 처리하지 않고, VO 만들어 사용
+		//PageVO.java 클래스를 만들어서 페이징 처리 변수와 검색어 변수 선언, Get/Set 생성
+		//PageVO만들기 전 SQL 쿼리로 가상으로 페이지를 구현 및 필요한 변수 생성
+		List<MemberVO> listMember = memberService.selectMember();
+		listMember.toString();
+		//listMember.toString();
 	}
 	
 	@Test
 	public void oldQueryTest() throws Exception {
 		//스프링빈을 사용하지 않을 때 예전 방식 : 코딩테스트에서는 스프링 설정을 안쓰고, 직접 DB 아이디/암호 입력
 		Connection connection = null;
-		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE2","apmsetup");
+		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE","apmsetup");
 		logger.debug("데이터 베이스 직접 접속 성공. DB종류는 " + connection.getMetaData().getDatabaseProductName());
 		//직접쿼리를 날립니다. 날리기 전 쿼리문자 객체생성 statements
 		Statement stmt = connection.createStatement();

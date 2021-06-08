@@ -3,25 +3,25 @@ package com.edu.vo;
 import java.util.Date;
 
 /**
- * 이 클래스는 DB에서 Model클래스로 입 출력, Model에서 Service클래스로 입 출력할 때
- * Service에서 Controller클래스 데이터를 입 출력할 때,
- * Controller에서  jsp로 데이터를 주고 받을 때 사용하는 데이터 클래스 입니다.
- * @author csy5770
+ * 이 클래스는 DB에서 Model클래스로 입출력, Model에서 Service클래스로 입출력
+ * Service에서 Controller클래스 데이터를 입출력,
+ * Controller에서 jsp로 데이터를 주고 받을때 사용하는 데이터 클래스 입니다.
+ * @author 김일국
  *
  */
 public class MemberVO {
-	//ERD를 보고 멤버 변수를 만듦.
+	//ERD를 보고 멤버변수를 만듭니다.
 	private String user_id;
 	private String user_pw;
 	private String user_name;
 	private String email;
-	private Integer point;// 정수형 int를 사용하지 않고, integer를 사용한 이유는 클래스(참조형) 데이터형은 Null을 허용하기 때문.
-	private Boolean enabled;//논리불린형 boolean -> Boolean 사용
+	private Integer point;//정수형 int를 사용하지 않고, Integer를 사용하는 이유는 클래스(참조형)데이터형은 Null을 허용하기 때문에 사용.
+	private Boolean enabled;//논리-불린형 boolean -> Boolean 사용
 	private String levels;
 	private Date reg_date;
 	private Date update_date;
-	//책에서는 롬복loombok.jar를 사용해서 아래 내용을 생략 가능.
-	//우리는 Get/Set 만들어서 사용(롬복 사용X).
+	//책에서는 롬복loombok.jar 을 사용해서 아래 내용을 생략가능합니다.
+	//우리는 롬복을 사용한지 않고, Get/Set을 만들어서 사용합니다.
 	public String getUser_id() {
 		return user_id;
 	}

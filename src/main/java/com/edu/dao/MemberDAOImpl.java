@@ -25,7 +25,7 @@ public class MemberDAOImpl implements IF_MemberDAO {
 	public List<MemberVO> selectMember() throws Exception {
 		// SqlSession의 메서드를 이용해서 매퍼쿼리를 사용.
 		List<MemberVO> listMember = sqlSession.selectList("memberMapper.selectMember");
-		return null;
+		return listMember;
 	}
 
 }
