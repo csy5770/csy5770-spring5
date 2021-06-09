@@ -26,6 +26,11 @@ equals 메서드를 사용하면 null 비교까지 가능.
 	        </if>
         </if>
 </sql>
+<!-- jsp폼에서 전송받은 user_id 값의 데이터를 이용해서 dB에 해당 레코드를 삭제 (아래) -->
+<delete id="deleteMember">
+delete from tbl_member where user_id = #{user_id}
+
+</delete>
 <!-- jsp폼에서 전송받은 memberVO객체의 데이터를 DB에 insert합니다(아래) -->
 <insert id="insertMember">
 insert into tbl_member 

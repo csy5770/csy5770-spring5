@@ -42,6 +42,11 @@ public class DataSourceTest {
 	@Inject //MemberService를 주입받아서 객체를 사용(아래)
 	private IF_MemberService memberService;
 	
+	
+	@Test
+	public void deleteMember() throws Exception {
+		memberService.deleteMember("user_del");
+	}
 	@Test
 	public void insertMember() throws Exception {
 		MemberVO memberVO = new MemberVO();

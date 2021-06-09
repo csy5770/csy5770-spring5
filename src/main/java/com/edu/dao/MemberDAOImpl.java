@@ -43,4 +43,11 @@ public class MemberDAOImpl implements IF_MemberDAO {
 		
 	}
 
+	@Override
+	public void deleteMember(String user_id) throws Exception {
+		//sqlSession빈의 메서드를 이용해서 매퍼 쿼리를 실행(아래)
+		sqlSession.delete("memberMapper.deleteMember",user_id);
+		
+	}
+
 }
