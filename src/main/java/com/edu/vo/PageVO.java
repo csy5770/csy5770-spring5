@@ -83,7 +83,9 @@ public class PageVO {
 		}
 		//--- 여기까지가 startPage, endPage를 구하는 계산식
 		//--- 이후는 prev, next 구하는 계산식
-		//UI 하단의 페이지 번호 예상 < (비활성) 1, 2, 3, 4, 5, 6,...10 > (활성-링크값 10+1)
+		//UI 하단의 페이지 번호 예상
+		//< (비활성) 1, 2, 3, 4, 5, 6,...10 > (활성-링크값 10+1)
+		//<(활성링크startPage-1)11,12,13,14,15,16,17,18,19,20>(활성-링크값 endPage+1)
 		this.prev = (this.startPage > 1); //startPage가 1페이지가 아닐 때만 prev 활성화 = true
 		this.next = (this.endPage*this.queryPerPageNum) < this.totalCount;
 		//10*10 = 100
