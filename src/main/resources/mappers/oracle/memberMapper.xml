@@ -6,7 +6,11 @@
 이번주 조회기능중 검색기능, 페이징처리기능을 실습하시는 것이 핵심.
  -->
 <mapper namespace="memberMapper">
-<!-- 공통쿼리 마이바티스 include문 사용 -->
+<!-- 공통쿼리 마이바티스 include문 사용 
+if 조건문에서 test 조건 부분에서 문자열 비교 시 '문자열'.toString() 형변환 함수는 필수, 없으면 비교불가. 
+다음처럼 비교해도 가능 test=" 'all'. equals(search_type)", 스프링 클래스에서 실습.
+equals 메서드를 사용하면 null 비교까지 가능.
+-->
 <sql id="sqlWhere">
 	<if test="search_type != '' and search_type != null">
         WHERE 
@@ -22,6 +26,31 @@
 	        </if>
         </if>
 </sql>
+<!-- jsp폼에서 전송받은 memberVO객체의 데이터를 DB에 insert합니다(아래) -->
+<insert id="insertMember">
+insert into tbl_member 
+(
+user_id,
+user_pw,
+user_name,
+email,
+point,
+enabled,
+levels,
+reg_date
+) 
+values 
+(
+#{user_id},
+#{user_pw},
+#{user_name},
+#{email},
+#{point},
+#{enabled},
+#{levels},
+systimestamp
+)
+</insert>
 <select id="countMember" resultType="int">
 select count(*) from tbl_member
 </select>
@@ -32,7 +61,7 @@ SELECT TableB.* FROM
     SELECT ROWNUM AS RNUM, TableA.* FROM
     (
         SELECT * FROM tbl_member
-        <include refid="sqlWhere"/>
+        <include refid="sqlWhere" />
         ORDER BY reg_date DESC
     ) TableA
 <![CDATA[ 

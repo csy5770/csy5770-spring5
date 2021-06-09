@@ -41,6 +41,22 @@ public class DataSourceTest {
 	// 자바8부터 Inject 지원. 이전 버전 자바에서는 @Autowired 로 객체를 생성.
 	@Inject //MemberService를 주입받아서 객체를 사용(아래)
 	private IF_MemberService memberService;
+	
+	@Test
+	public void insertMember() throws Exception {
+		MemberVO memberVO = new MemberVO();
+		//insert 쿼리에 저장할 객체
+		memberVO.setUser_id("user_del");
+		memberVO.setUser_pw("1234");//스프링 시큐리티 중 512비트 암호화로 처리예정.
+		memberVO.setEmail("user@test.com");
+		memberVO.setPoint(10);
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_USER");
+		memberVO.setUser_name("삭제할 사용자");
+		memberService.insertMember(memberVO);
+		selectMember();
+		
+	}
 	//스프링 코딩 시작 순서
 	//M-V-C 사이에 데이터를 임시 저장하는 공간(VO 클래스-멤버변호+Get/Set메서드) 생성
 	//보통 ValueObject 클래스는 DB 테이블과 1:1로 매칭이 됩니다.
@@ -61,7 +77,7 @@ public class DataSourceTest {
 	    pageVO.setQueryPerPageNum(10);//쿼리에서 페이지 당 개수, 쿼리용.
 	    pageVO.setTotalCount(memberService.countMember()); //테스트용. 100명 입력.
 	    pageVO.setSearch_type("user_id");
-	    pageVO.setSearch_keyword("admin");
+	    pageVO.setSearch_keyword("user_del");
 	    
 	    //위 위치가 다른 설정보다 상단이면 에러, calcPage()가 실행될 때 위 3가지 변수 값이 저장 되어 있어야 계산 메서드가 작동되기 때문.
 	    //위 토탈카운트 변수는 startPage, endPage 계산에 필수

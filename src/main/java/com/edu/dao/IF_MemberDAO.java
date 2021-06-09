@@ -16,5 +16,6 @@ public interface IF_MemberDAO {
 	//다수의 레코드를 저장할 수 있게 됨.
 	public List<MemberVO> selectMember(PageVO pageVO) throws Exception;
 	//회원 전체 수를 구함(아래)
-	public int countMember() throws Exception; 
+	public int countMember() throws Exception;
+	public void insertMember(MemberVO memberVO) throws Exception; 
 }
