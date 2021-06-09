@@ -7,6 +7,9 @@
 -->
 <mapper namespace="memberMapper">
 <!-- 무조건 조회 쿼리 -->
+<select id="countMember" resultType="int">
+select count(*) from tbl_member
+</select>
 <select id="selectMember" resultType="com.edu.vo.MemberVO">
 select * from tbl_member
 </select>
