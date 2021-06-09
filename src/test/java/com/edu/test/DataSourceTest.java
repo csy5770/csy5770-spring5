@@ -60,7 +60,9 @@ public class DataSourceTest {
 	    pageVO.setPerPageNum(10);//UI 하단 페이지 개수
 	    pageVO.setQueryPerPageNum(10);//쿼리에서 페이지 당 개수, 쿼리용.
 	    pageVO.setTotalCount(memberService.countMember()); //테스트용. 100명 입력.
+	    pageVO.setSearch_type("user_id");
 	    pageVO.setSearch_keyword("admin");
+	    
 	    //위 위치가 다른 설정보다 상단이면 에러, calcPage()가 실행될 때 위 3가지 변수 값이 저장 되어 있어야 계산 메서드가 작동되기 때문.
 	    //위 토탈카운트 변수는 startPage, endPage 계산에 필수
 	    //매퍼쿼리_DAO클래스_Service클래스_JUnit(나중에 컨트롤러에서 작업)
