@@ -55,7 +55,15 @@ public class DataSourceTest {
 		//PageVO.java 클래스를 만들어서 페이징 처리 변수와 검색어 변수 선언, Get/Set 생성
 		//PageVO만들기 전 SQL 쿼리로 가상으로 페이지를 구현 및 필요한 변수 생성
 		PageVO pageVO = new PageVO();
-	    pageVO.setTotalCount(100); //테스트용. 100명 입력.
+	    
+	    pageVO.setPage(1);//기본 값으로 1페이지 적용.
+	    pageVO.setPerPageNum(10);//UI 하단 페이지 개수
+	    pageVO.setQueryPerPageNum(10);//쿼리에서 페이지 당 개수, 쿼리용.
+	    pageVO.setTotalCount(memberService.countMember()); //테스트용. 100명 입력.
+	    pageVO.setSearch_keyword("admin");
+	    //위 위치가 다른 설정보다 상단이면 에러, calcPage()가 실행될 때 위 3가지 변수 값이 저장 되어 있어야 계산 메서드가 작동되기 때문.
+	    //위 토탈카운트 변수는 startPage, endPage 계산에 필수
+	    
 		List<MemberVO> listMember = memberService.selectMember();
 		listMember.toString();
 		//listMember.toString();
