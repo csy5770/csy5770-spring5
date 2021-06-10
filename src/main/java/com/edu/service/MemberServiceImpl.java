@@ -29,12 +29,6 @@ public class MemberServiceImpl implements IF_MemberService{
 	}
 
 	@Override
-	public int countMember() throws Exception {
-		// 인젝션 된 DAO 객체를 사용 (아래)
-		return memberDAO.countMember();
-	}
-
-	@Override
 	public void insertMember(MemberVO memberVO) throws Exception {
 		// 클래스 상단에서 인젝션으로 주입받은 DAO 객체를 사용(아래)
 		memberDAO.insertMember(memberVO);
@@ -59,6 +53,12 @@ public class MemberServiceImpl implements IF_MemberService{
 		// 클래스 상단에서 인젝션으로 주입받은 DAO 객체를 사용(아래)
 		memberDAO.updateMember(memberOne);
 		
+	}
+
+	@Override
+	public int countMember(PageVO pageVO) throws Exception {
+		// 클래스 상단에서 인젝션으로 주입받은 DAO 객체를 사용(아래)
+		return memberDAO.countMember(pageVO);
 	}
 
 }
