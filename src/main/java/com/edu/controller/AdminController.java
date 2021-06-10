@@ -38,9 +38,9 @@ public class AdminController {
 	         pageVO.setPage(1);
 	      }
 	      //pageVO의 calcPage메서드를 실행하려면, 필수 변수 값 입력(아래)
+	      List<MemberVO> listMember = memberService.selectMember(pageVO);
 	      pageVO.setQueryPerPageNum(10);
 	      logger.info("디버그"+pageVO.toString());
-	      List<MemberVO> listMember = memberService.selectMember(pageVO);
 	      pageVO.setTotalCount(listMember.size());//검색이 되든 되지 않든 결과는 전체 카운트 값.
 	      return "admin/member/member_list"; //jsp파일 상대경로
 	   }
