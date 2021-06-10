@@ -71,7 +71,7 @@ public class DataSourceTest {
 			
 			//혹시 여러번 실행시켜서 중복암호화 시킬수 있으므로 제외조건을 추가(아래)
 			String rawPassword = memberOne.getUser_pw();
-			if(rawPassword.length() < 10) {//원시암호 데이터 길이가 50보다 작을 때만 암호화 로직 동작설정.
+			if(rawPassword.length() < 50) {//원시암호 데이터 길이가 50보다 작을 때만 암호화 로직 동작설정.
 				//memberOne객체(1개의레코드)의 암호를 뽑아서 시큐리티로 암호화 시킨 후 onePwEncoder변수입력
 				String onePwEncoder = passwordEncoder.encode(rawPassword);
 				memberOne.setUser_pw(onePwEncoder);
