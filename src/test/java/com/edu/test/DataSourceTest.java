@@ -52,13 +52,16 @@ public class DataSourceTest {
 		memberVO.setLevels("ROLE_ADMIN");
 		memberVO.setPoint(100);
 		memberVO.setUser_name("최고관리자");
-		memberVO.setUser_pw("1234");//1사이클 돌린후 암호화로직 적용.
-		//스프링5시큐리티 암호화 적용로직(아래)
+		memberVO.setUser_pw("");//미입력 시 업데이트에서 제외.
+		//메서드 내에 적용 되는 객체변수 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
-		memberVO.setUser_pw(userPwEncoder);//암호화된 해시데이터가 memberVO객체 임시저장됨.
+		//스프링5시큐리티 암호화 적용로직(아래)
+		if((memberVO.getUser_pw()).length() > 0) {
+			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
+			memberVO.setUser_pw(userPwEncoder);//암호화된 해시데이터가 memberVO객체 임시저장됨.
+		}
 		memberVO.setUser_id("admin");//수정 조회조건에 사용.
-
+		memberService.updateMember(memberVO);
 		//아래 수정 call호출을 회원수만큼 반복을 해야 합니다.(아래)
 		PageVO pageVO = new PageVO();
 		pageVO.setPage(1);//기본값으로 1페이지를 입력합니다.
