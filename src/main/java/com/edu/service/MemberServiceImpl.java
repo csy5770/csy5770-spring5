@@ -48,4 +48,10 @@ public class MemberServiceImpl implements IF_MemberService{
 		
 	}
 
+	@Override
+	public MemberVO readMember(String user_id) throws Exception {
+		// 클래스 상단에서 인젝션으로 주입받은 DAO 객체를 사용(아래)
+		return memberDAO.readMember(user_id);
+	}
+
 }

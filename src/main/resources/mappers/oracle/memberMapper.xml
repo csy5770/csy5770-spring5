@@ -26,6 +26,10 @@ equals 메서드를 사용하면 null 비교까지 가능.
 	        </if>
         </if>
 </sql>
+<!-- jsp 상세보기에 출력할 내용을 뽑아내는 쿼리 -->
+<select id="readMember" resultType="com.edu.vo.MemberVO">
+select * from tbl_member where user_id = #{user_id}
+</select>
 <!-- jsp폼에서 전송받은 user_id 값의 데이터를 이용해서 dB에 해당 레코드를 삭제 (아래) -->
 <delete id="deleteMember">
 delete from tbl_member where user_id = #{user_id}

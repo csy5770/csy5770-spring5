@@ -18,5 +18,6 @@ public interface IF_MemberDAO {
 	//회원 전체 수를 구함(아래)
 	public int countMember() throws Exception;
 	public void insertMember(MemberVO memberVO) throws Exception;
-	public void deleteMember(String user_id) throws Exception; 
+	public void deleteMember(String user_id) throws Exception;
+	public MemberVO readMember(String user_id) throws Exception; 
 }
