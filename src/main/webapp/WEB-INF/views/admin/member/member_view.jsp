@@ -35,7 +35,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form name="form_view" action="board_write.html" enctype="multipart/form-data">
+          <form id="form_view" name="form_view" action="/admin/member/member_update" method="post" enctype="multipart/form-data">
             <!-- get방식은 검색, post방식은 글쓰기 로그인 등.(get방식하면 입력한 비밀번호가 주소에 뜸) -->
             <!-- enctype="multipart/form-data": 첨부파일을 전송할 때 필수로 들어가야 함. -->
             <div class="card-body">
@@ -75,18 +75,21 @@
                 <c:out value="${memberVO.update_date}" />
               </div>
               </div>
-              
-            </div>
             <!-- /.card-body -->
+            
             <div class="card-footer text-right">
               <button type="submit" class="btn btn-primary">수정</button>
-              <button type="button" class="btn btn-danger">삭제</button>
-              <a href="board_list.html" class="btn btn-default">목록</a>
+              <button type="button" class="btn btn-danger" id="btn_delete">삭제</button>
+              <button type="button" class="btn btn-default" id="btn_list">목록</button>
+              <!-- 목록으로 이동하려면, pageVO도 가져가야합니다.또한 삭제 및 수정은 보안때문에 URL쿼리스트링(GET)으로 보내면 안됩니다. POST방식으로 보내야 함. -->
+              <input type="hidden" name="page" value="${pageVO.page}">
+              <input type="hidden" name="search_type" value="${pageVO.search_type}">
+              <input type="hidden" name="search_keyword" value="${pageVO.search_keyword}">
+              <input type="hidden" name="user_id" value="${memberVO.user_id}">
+              </div>
             </div>
           </form>
-        </div>
-       
-
+        </div>    
         <!-- //컨텐츠 내용 -->
       </div>
       <!-- /.container-fluid -->
@@ -96,3 +99,13 @@
   <!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
+<!-- 관리자단은 jQuery코어가 하단 footer에 있기 때문에 푸터 아래에 위치한다. -->
+<script>
+$(document).ready(function() {
+   $("#btn_list").click(function() {
+      alear
+	  //var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}';
+      //location.replace('/admin/member/member_list?'+queryString);
+   });
+});
+</script>
