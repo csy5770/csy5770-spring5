@@ -31,7 +31,8 @@ public class AdminController {
    private IF_MemberService memberService;
    
    @RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
-   public String selectMember(PageVO pageVO) throws Exception {
+   public String selectMember(PageVO pageVO,Model model) throws Exception {
+	   
       //jsp 검색시 search_type,search_keyword로 내용이 PageVO클래스에 Set 됩니다.
       
       //역방향: 검색한 결과를 jsp로 보내줍니다.
@@ -39,14 +40,16 @@ public class AdminController {
          pageVO.setPage(1);
       }
       //pageVO의 clacPage메소드를 실행하려면 필수 변수값을 입력해야함(아래)
-      pageVO.setQueryPerPageNum(10);
-      pageVO.setPerPageNum(10);//하단 UI에 보여줄 페이지 수
+      pageVO.setQueryPerPageNum(5);//memberList객체+endPage 구할 때 필요.
+      pageVO.setPerPageNum(5);//하단 UI에 보여줄 페이지 수
       pageVO.setTotalCount(memberService.countMember(pageVO)); //검색되든 안되든 결과의 전체카운트값.
      
      
       List<MemberVO> listMember = memberService.selectMember(pageVO);
       
-      logger.info("디버그"+pageVO.toString()); //지금까지 jsp -> 컨트롤러 일방향 자료이동.
+      logger.info("디버그"+pageVO.toString());
+      model.addAttribute("listMember", listMember);
+      model.addAttribute("pageVO", pageVO);//나중에 @ModelAttribute로 대체
       return "admin/member/member_list"; //jsp파일 상대경로
    }
    //URL요청 경로=리퀘스트맵핑 는 반드시 *절대경로*로 표시.
