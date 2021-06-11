@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,7 +32,7 @@ public class AdminController {
    private IF_MemberService memberService;
    
    @RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
-   public String selectMember(PageVO pageVO,Model model) throws Exception {
+   public String selectMember(@ModelAttribute("PageVO")PageVO pageVO,Model model) throws Exception {
 	   
       //jsp 검색시 search_type,search_keyword로 내용이 PageVO클래스에 Set 됩니다.
       
@@ -49,7 +50,7 @@ public class AdminController {
       
       logger.info("디버그"+pageVO.toString());
       model.addAttribute("listMember", listMember);
-      model.addAttribute("pageVO", pageVO);//나중에 @ModelAttribute로 대체
+      //model.addAttribute("pageVO", pageVO);//나중에 @ModelAttribute로 대체
       return "admin/member/member_list"; //jsp파일 상대경로
    }
    //URL요청 경로=리퀘스트맵핑 는 반드시 *절대경로*로 표시.

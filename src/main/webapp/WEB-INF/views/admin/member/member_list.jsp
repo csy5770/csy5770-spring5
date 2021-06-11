@@ -72,13 +72,13 @@
               </c:if>
                 <!-- jstl반복문으로 listMember객체 바인딩 -->
                 <c:forEach var="memberVO" items="${listMember}">
-                <tr style="cursor: pointer;" onclick="location.replace('/admin/member/member_view?user_id=${memberVO.user_id}');">
-                  <td>${memberVO.user_id}</td>
-                  <td>${memberVO.user_name}</td>
-                  <td>${memberVO.email}</td>
-                  <td>${memberVO.levels}</td>
-                  <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss.SSSS" value="${memberVO.reg_date}"/></td>
-                </tr>
+                   <tr style="cursor: pointer;" onclick="location.replace('/admin/member/member_view?user_id=${memberVO.user_id}');">
+                     <td><c:out value="${memberVO.user_id}" /></td>
+                     <td><c:out value="${memberVO.user_name}" /></td>
+                     <td><c:out value="${memberVO.email}" /></td>
+                     <td>${memberVO.levels}</td>
+                     <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss.SSSS" value="${memberVO.reg_date}"/></td>
+                   </tr>
                 </c:forEach>
               </tbody>
             </table>
@@ -95,15 +95,10 @@
               <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
             </li>
             
-            <c:forEach var="idx" begin="${pageVO.startPage}" end="${pageVO.endPage}" step="1">
-            	<!-- 
-            	jstl c:out value 값에 삼항 연산자 비교값을 구현 
-            	c:out을 써서 출력하는 ExpressionLanguage(표현 언어)
-            	-->
-            	<c:out value="${(idx==pageVO.page)?'active':'' }"></c:out>
-            <li class="paginate_button page-item active">
-              <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-            </li>
+            <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" step="1" var="idx">
+               <li class="paginate_button page-item <c:out value="${idx==pageVO.page?'active':''}"/>">
+                   <a href="/admin/member/member_list?page=${idx}&search_keyword=${pageVO.search_keyword}&search_type=${pageVO.search_type}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a>
+               </li>
             </c:forEach>
 
             <li class="paginate_button page-item next" id="example2_next">
