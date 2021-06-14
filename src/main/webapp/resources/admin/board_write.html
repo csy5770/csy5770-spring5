@@ -176,15 +176,15 @@
                 <select name="board_type" class="form-control">
                   <option>선택</option>
                   <option>공지사항</option>
-                  <option>갤러리</option>
+                  <option>겔러리</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="title">글 제목</label>
+                <label for="title">글제목</label>
                 <input name="title" type="text" class="form-control" id="title" placeholder="제목을 입력해 주세요" required>
               </div>
               <div class="form-group">
-                <label for="content">글 내용</label>
+                <label for="content">글내용</label>
                 <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required></textarea>
               </div>
               <div class="form-group">
@@ -202,15 +202,12 @@
                 <div class="mb-2"></div>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input name="file" type="file" class="custom-file-input" id="file0">
-                    <label class="custom-file-label" for="file0">파일선택</label>
+                    <input name="file" type="file" class="custom-file-input" id="file1">
+                    <label class="custom-file-label" for="file1">파일선택</label>
                   </div>
-                </div>  
+                </div>
               </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div>
+              
             </div>
             <!-- /.card-body -->
 
@@ -236,7 +233,7 @@
 
   <!-- Control Sidebar 오른쪽 바둑판베뉴클릭시 나오는 내용 -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- demo.js에서 출력할 내용이 존재, demo.js사용 안함. -->
+    <!-- demo.js에서 출력할 내용이 존재, demo.js사용않함. -->
     <div class="text-center mt-4">
     <h5>로그아웃</h5><hr class="mb-2"/>
     <button type="button" class="btn btn-primary" id="btn_logout">로그아웃</button>
@@ -265,34 +262,35 @@
 <!-- <script src="dist/js/demo.js"></script> -->
 <!-- 첨부파일명을 input태그디자인 안쪽에 집어넣는 확장프로그램 -->
 <script src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<!-- 위 첨부파일 확장프로그램 실행(아래) -->
+<!-- 위 첨부파일 확장프로그램 실행(아래-개발자가 처리) -->
 <script>
 	$(document).ready(function(){
 		bsCustomFileInput.init();
 	});
 </script>
-<!-- 서머노트 웹데이터 실행(아래-개발자가 처리) -->
+<!-- 서머노트 웹에디터 실행(아래-개발자가 처리) -->
 <script>
 	$(document).ready(function(){
-		//$('#content_lbl').summernote();//서머노트 기본실행. 아래 개발자 커스터마이징.
+		//$('#content_lbl').summernote();//기본실행. 이기본실을 개발자 커스터마이징 합니다.
 		$('#content').summernote({
 			height:150,
-			lang:'ko-kR',
+			lang:'ko-KR',
 			placeholder:'글 내용을 입력해 주세요',
-			fontNames: ['Arial','Arial Black','맑은 고딕','Nanum Gothic'],
-			fontSizes: ['8','10','12','14','16','18','20','22','24','26','28','30'],
 			toolbar: [
 				['fontname',['fontname']],
 				['fontsize',['fontsize']],
 				['style',['bold','italic','underline']],
-				['color',['forecolor','color']]
+				['color',['forecolor','color']],
+				['table',['table']],
 				['para',['ul','ol','paragraph']],
 				['height',['height']],
-				['insert',['link','video']], //'picture', 
-				['view',['fullscreen','help']],
+				['insert',['link','video']],//'picture',
+				['view',['fullscreen','help']]
 			],
+			fontNames: ['Arial','Arial Black','맑은 고딕','궁서','Nanum Gothic'],
+			fontSizes: ['8','10','12','14','16','18','20','22','24','26','28','30'],
 			fontNamesIgnoreCheck: ['Nanum Gothic']
-		});	
+		});
 	});
 </script>
 </body>

@@ -36,7 +36,7 @@ public class AdminController {
    @RequestMapping(value="/admin/member/member_update",method=RequestMethod.POST)
    public String updateMember() throws Exception {
       
-      return "admin/member/member_update";
+      return null;
    }
    
    //아래 경로는 수정폼을 호출=화면에 출력만(렌더링만)
