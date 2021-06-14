@@ -6,7 +6,7 @@ import java.util.Date;
  * 이 클래스는 DB에서 Model클래스로 입출력, Model에서 Service클래스로 입출력
  * Service에서 Controller클래스 데이터를 입출력,
  * Controller에서 jsp로 데이터를 주고 받을때 사용하는 데이터 클래스 입니다.
- * @author 김일국
+ * @author csy5770
  *
  */
 public class MemberVO {
@@ -20,6 +20,8 @@ public class MemberVO {
 	private String levels;
 	private Date reg_date;
 	private Date update_date;
+	
+	
 	//책에서는 롬복loombok.jar 을 사용해서 아래 내용을 생략가능합니다.
 	//우리는 롬복을 사용한지 않고, Get/Set을 만들어서 사용합니다.
 	public String getUser_id() {
@@ -76,5 +78,10 @@ public class MemberVO {
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
 	}
-	
+	@Override
+	public String toString() {
+		return "MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", email=" + email
+				+ ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date=" + reg_date
+				+ ", update_date=" + update_date + "]";
+	}
 }

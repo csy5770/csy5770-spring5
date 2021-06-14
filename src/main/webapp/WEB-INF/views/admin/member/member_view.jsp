@@ -98,11 +98,18 @@
 <%@ include file="../include/footer.jsp" %>
 <!-- 관리자단은 jQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
 <script>
-$(document).ready(function(){
-	$("#btn_list").click(function(){
-		var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}';
-		//alert(queryString);//디버그
-		location.replace('/admin/member/member_list?'+queryString);
-	});
+$(document).ready(function() {
+   $("#btn_delete").click(function() {
+      if(confirm("정말로 삭제하시겠습니까?")) {
+         //위 컨펌 대화상자에서 예.를 누르면 아래부분이 실행됨.(아니오.건너뜀)
+         $("#form_view").attr("action","/admin/member/member_delete");
+         $("#form_view").submit();
+      }
+   });
+   $("#btn_list").click(function() {
+      //alert('준비중입니다.');
+      var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}';
+      location.replace('/admin/member/member_list?'+queryString);
+   });
 });
 </script>

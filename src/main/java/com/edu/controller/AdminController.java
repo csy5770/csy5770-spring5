@@ -32,6 +32,15 @@ public class AdminController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	@RequestMapping(value="/admin/member/member_delete",method=RequestMethod.POST)
+	public String deleteMember(MemberVO memberVO) throws Exception {
+		logger.info("디버그:" + memberVO.toString());
+		//MemberVO memberVO는 클래스형 변수 : String user_id 스트링형 변수 같은 방식.
+		String user_id = memberVO.getUser_id();
+		//이 메서드는 회원상세보기 페이지에서 삭제버튼에 MemberVO값을 활용해 삭제기능을 구현
+		//memberService.deleteMember(memberVO.getUser_id());
+		return null;
+	}
 	@RequestMapping(value="/admin/member/member_view", method=RequestMethod.GET)
 	public String viewMemberForm(Model model, @RequestParam("user_id")String user_id, @ModelAttribute("pageVO")PageVO pageVO) throws Exception{
 		/*
@@ -41,6 +50,7 @@ public class AdminController {
 		 */
 		//위 출력값 memberVO 1개의 레코드를 model를 이용해서 member_view.jsp 보냅니다.(아래)
 		model.addAttribute("memberVO", memberService.readMember(user_id));
+		//아래 페이지 렌더링시 @ModelAttribute("pageVO")에 의해서 pageVO변수 값으로 jsp로 보냄
 		return "admin/member/member_view";//상태경로 폴더파일위치
 	}
 	@RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
