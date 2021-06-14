@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,9 +37,16 @@ public class AdminController {
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String updateMember(MemberVO memberVO, PageVO pageVO) throws Exception {
 		//update 서비스만 처리하면 끝.
-		//이 메서드는 수정 처리 이후 보안 페이지에 있습니다.
+		//업데이트 쿼리서비스 호출하기 전 스프링 시큐리티 암호화를 적용함.
+		String rawPassword = memberVO.getUser_pw();
+		if(rawPassword.isEmpty()) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encPassword = passwordEncoder.encode(rawPassword);
+			memberVO.setUser_pw(encPassword);
+	}
 		memberService.updateMember(memberVO);//반환 값이 없음.
 		//redirect로 페이지를 이동하면, model로 담아서 보낼 수 없습니다. 쿼리스트링(url?)으로 보냄.
+		
 		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
 		return "redirect:/admin/member/member_update_form?"+queryString; //확장자 생략.
 	}
