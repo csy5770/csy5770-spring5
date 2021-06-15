@@ -33,22 +33,33 @@ public class AdminController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	//아래 경로는 회원 신규등록 폼을 호출하는 URL 쿼리스트링으로 보낸 데이터를 받을 때는 GET 방식으로 받습니다.
+	@RequestMapping(value="/admin/member/member_insert_form", method=RequestMethod.GET)
+	public String insertMemberForm(@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
+		
+		return "admin/member/member_insert";//.jsp는 생략
+	}
+	//아래 경로는 회원 신규등록을 처리 서비스를 호출하는 URL
+	@RequestMapping(value="/admin/member/member_insert", method=RequestMethod.POST)
+	public String insertMember() throws Exception {
+		
+		return null;
+	}
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String updateMember(MemberVO memberVO, PageVO pageVO) throws Exception {
-		//update 서비스만 처리하면 끝.
-		//업데이트 쿼리서비스 호출하기 전 스프링 시큐리티 암호화를 적용함.
+		//update 서비스만 처리하면 끝
+		//업데이트 쿼리서비스 호출하기 전 스프링시큐리티 암호화 적용합니다.
 		String rawPassword = memberVO.getUser_pw();
-		if(rawPassword.isEmpty()) {
+		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래로직실행.
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String encPassword = passwordEncoder.encode(rawPassword);
 			memberVO.setUser_pw(encPassword);
-	}
-		memberService.updateMember(memberVO);//반환 값이 없음.
-		//redirect로 페이지를 이동하면, model로 담아서 보낼 수 없습니다. 쿼리스트링(url?)으로 보냄.
-		
+		}
+		memberService.updateMember(memberVO);//반환값이 없습니다.
+		//redirect로 페이지를 이동하면, model로 담아서 보낼수 없습니다. 쿼리스트링(URL?)으로 보냅니다.
 		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
-		return "redirect:/admin/member/member_update_form?"+queryString; //확장자 생략.
+		return "redirect:/admin/member/member_update_form?"+queryString;
 	}
 	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만
 	@RequestMapping(value="/admin/member/member_update_form", method=RequestMethod.GET)
