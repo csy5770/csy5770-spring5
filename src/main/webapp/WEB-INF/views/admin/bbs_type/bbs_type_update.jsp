@@ -29,16 +29,17 @@
         <!-- 콘텐츠 내용 -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">등록/수정</h3>
+            <h3 class="card-title">뷰/수정</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form name="form_write" action="board_write.html" enctype="multipart/form-data">
+          <form name="form_write" action="/admin/bbs_type/bbs_type_update" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
-                <label for="board_type">게시판타입</label>
-                <input value="${boardTypeVO.board_type}" name="board_type" type="text" class="form-control" id="board_type" placeholder="게시판타입을 입력해 주세요" required>
+              <!-- pk 고유키의 식별자가 수정 되면 PK에 묶인 하위게시물의 소속이 사라지기 때문에 수정 불가. -->
+                <label for="board_type" >게시판타입</label>
+                <input readonly value="${boardTypeVO.board_type}" name="board_type" type="text" class="form-control" id="board_type" placeholder="게시판타입을 입력해 주세요" required>
               </div>
               <div class="form-group">
                 <label for="board_name">게시판이름</label>
@@ -53,8 +54,8 @@
             <!-- /.card-body -->
 
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary">등록</button>
-              <a href="board_list.html" class="btn btn-default">목록</a>
+              <button type="submit" class="btn btn-primary">수정</button>
+              <a href="/admin/bbs_type/bbs_type_list" class="btn btn-default">목록</a>
             </div>
           </form>
         </div>
