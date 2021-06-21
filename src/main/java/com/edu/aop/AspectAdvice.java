@@ -16,7 +16,7 @@ import com.edu.vo.BoardTypeVO;
  * @author csy5770
  *
  */
-//@Aspect
+@Aspect
 @ControllerAdvice
 public class AspectAdvice {
 	@Inject
