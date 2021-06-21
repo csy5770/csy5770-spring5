@@ -1,16 +1,16 @@
 package com.edu.vo;
 /**
- * 이 클래스는 게시판 생성관리의 데이터를 입/출력 임시저장하는 기능의 클래스
- * 이 클래스를 이용해서 AspectOrientiedProgramming(관점지향프로그래밍)실습
+ * 이 클래스는 게시판생성관리의 데이터를 입/출력 임시저장하는 기능의 클래스
+ * 이 클래스를 이용해서 AspectOrientiedPrograming(관점지향프로그래밍) 실습
  * @author csy5770
  *
  */
 public class BoardTypeVO {
-	//멤버 변수 생성
-	private String board_type;//PK 고유값, 식별자.
+	//멤버변수 생성
+	private String board_type;//PK고유값,식별자
 	private String board_name;
-	private Integer board_sun;//int>Integer null 허용 nullPoint 예외처리 방지기능
-	//입출력 가능한 메서드를 만듭니다.
+	private Integer board_sun;//int>Integer null을 허용 nullPoint예외처리 방지가능
+	//입출력가능한 메서드를 만듭니다.
 	public String getBoard_type() {
 		return board_type;
 	}
@@ -30,5 +30,4 @@ public class BoardTypeVO {
 		this.board_sun = board_sun;
 	}
 	
-
 }

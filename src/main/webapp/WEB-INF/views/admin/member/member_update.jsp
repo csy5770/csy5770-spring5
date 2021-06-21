@@ -35,7 +35,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form name="form_write" action="/admin/member/member_update" method="POST" enctype="multipart/form-data">
+          <form name="form_write" action="/admin/member/member_update" method="post" enctype="multipart/form-data">
             <div class="card-body">
               
               <div class="form-group">
@@ -82,7 +82,7 @@
               <button type="button" class="btn btn-default" id="btn_list">목록</button>
             </div>
             <input name="page" type="hidden" value="${pageVO.page}">
-            <input name="search_type" type="hidden" value="${pageVo.search_type}">
+            <input name="search_type" type="hidden" value="${pageVO.search_type}">
             <input name="search_keyword" type="hidden" value="${pageVO.search_keyword}">
           </form>
         </div>
@@ -104,7 +104,6 @@ $(document).ready(function(){
 		form_update.submit();
 	});
 	$("#btn_list").click(function(){
-		var form_update = $("form[name='form_write']");
 		form_update.attr("action","/admin/member/member_list");
 		form_update.attr("method","get");
 		form_update.submit();

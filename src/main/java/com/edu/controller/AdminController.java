@@ -21,9 +21,9 @@ import com.edu.vo.MemberVO;
 import com.edu.vo.PageVO;
 
 /**
- * 이 클래스는 Admin관리자단을 접근하는 클래스 <- 디스패처 서블렛 기능을 함.
- * 디스패처 서블렛 클래스는 톰캣이 실행(web.xml) 될 때 제일 먼저 실행되는 클래스, 게이트웨이라고도 함
- * 디스패처 서블릿 실행될 때 컨트롤러의 Request 매핑경로를 재등록 함.
+ * 이 클래스는 Admin관리자단을 접근하는 컨트롤러 클래스 <- 디스패처 서블렛(게이트웨이) 기능을 합니다.
+ * 디스페처 서블렛 클래스는 톰캣이 실행(web.xml)될때 제일 먼저 실행되는 클래스, 그래서, 게이트웨이라고 합니다.
+ * 디스페처 서블릿 실행될때, 컨트롤러의 Request매핑경로를 재 등록합니다.
  * 변수 Object를 만들어서 jsp로 전송 <-> jsp 폼값을 받아서 Object로 처리
  * @author csy5770
  *
@@ -38,55 +38,62 @@ public class AdminController {
 	private IF_MemberService memberService;
 	@Inject
 	private IF_BoardTypeService boardTypeService;
+	
 	//jsp에서 게시판생성관리에 Get/Post 접근할때 URL을 bbs_type로 지정합니다.
-		//왜 board_type하지않고, bbs_type하는 이유는 왼쪽메뉴 고정시키는 로직에서 경로 board와 겹치지 않도록
-		@RequestMapping(value="/admin/bbs_type/bbs_type_list", method=RequestMethod.GET)
-		public String selectBoardTypeList(Model model) throws Exception {//목록폼1
-			model.addAttribute("listBoardTypeVO",boardTypeService.selectBoardType());
-			return "admin/bbs_type/bbs_type_list";//상대 경로일 때는 views폴더가 root(최상위폴더)
-		}
-		//bbs_type_list.jsp에서 게시판 생성 버튼을 클릭했을 때 이동하는 폼 경로
-		@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.GET)
-		public String insertBoardTypeForm() throws Exception {//입력폼1
-			return "admin/bbs_type/bbs_type_insert";//.jsp생략
-		}
-		//bbs_type_insert.jsp의 입력폼에서 BoardTypeVO 담아서 {구현} 단, 자동으로 값이 바인딩되려면, 폼 name과 VO 멤버 변수명이 동일해야함.
-		@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.POST)
-		public String insertBoardType(BoardTypeVO boardTypeVO) throws Exception {//입력처리1
-			boardTypeService.insertBoardType(boardTypeVO);
-			return "redirect:/admin/bbs_type/bbs_type_list";//리다이렉트(뒤로가기불가)는 절대경로, forward:이동이 가능(뒤로가기 기능)
-		}
-		//게시판 생성관리는 이 기능은 사용자단에서 UI를 사용할 일이 없기때문에, Read, Update를 1개로 사용.
-		@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.GET)
-		public String updateBoardTypeForm(@RequestParam("board_type")String board_type, Model model) throws Exception {//수정폼1
-			model.addAttribute("boardTypeVO",boardTypeService.readBoardType(board_type));//서식 model.addAttribute("jsp변수","데이터객체");
-			return "admin/bbs_type/bbs_type_update";//.jsp 생략
-		}
-		@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.POST)
-		public String updateBoardType(BoardTypeVO boardTypeVO) throws Exception {//수정처리1
-			boardTypeService.updateBoardType(boardTypeVO);
-			return "redirect:/admin/bbs_type/bbs_type_update?board_type="+boardTypeVO.getBoard_type();
-		}
-		@RequestMapping(value="/admin/bbs_type/bbs_type_delete", method=RequestMethod.POST)
-		public String deleteBoardType(@RequestParam("board_type")String board_type) throws Exception {//삭제처리1
-			boardTypeService.deleteBoardType(board_type);//삭제 서비스 호출(실행) 끝
-			return "redirect:/admin/bbs_type/bbs_type_list";//.jsp 생략
-		}
-	//아래 경로는 회원 신규등록 폼을 호출하는 URL 쿼리스트링으로 보낸 데이터를 받을 때는 GET 방식으로 받습니다.
+	//왜 board_type하지않고, bbs_type하는 이유는 왼쪽메뉴 고정시키는 로직에서 경로 board와 겹치지 않도록
+	@RequestMapping(value="/admin/bbs_type/bbs_type_list", method=RequestMethod.GET)
+	public String selectBoardTypeList(Model model) throws Exception {//목록폼1
+		//아래 모델은 AOP기능중 ControllerAdvice 인터페이스로 구현했기 때문에 아래는 실행안함.
+		//model.addAttribute("listBoardTypeVO", boardTypeService.selectBoardType());
+		return "admin/bbs_type/bbs_type_list";//상대경로일때는 views폴더가 root(최상위)
+	}
+	//bbs_type_list.jsp에서 게시판생성 버튼을 클릭했을때 이동하는 폼 경로 
+	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.GET)
+	public String insertBoardTypeForm() throws Exception {//입력폼1
+		return "admin/bbs_type/bbs_type_insert";//.jsp생략
+	}
+	//bbs_type_insert.jsp의 입력폼에서 전송된 값을 boardTypeVO 자동담겨서 {구현} 단, 자동으로 값이 바인딩되려면, 폼name과, VO 멤버변수명 동일해야함. 
+	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.POST)
+	public String insertBoardType(BoardTypeVO boardTypeVO) throws Exception {//입력처리1
+		boardTypeService.insertBoardType(boardTypeVO);
+		return "redirect:/admin/bbs_type/bbs_type_list";
+		//리다이렉트(뒤로가기 데이터사라짐)는 절대경로, forward:이동이 가능(뒤로가기 데이터가 살아있음)
+		//쇼핑몰에서 결제화면을 처리 후 뒤로가기를 누르면, 리다이렉트는 데이터가 사라지기때문에 재결제 불가
+		//forward로 결제화면을 처리 후 뒤로가기를 누르면, 재결제가 발생됩니다. 이러면 않되기때문에 사용안함. 
+	}
+	//게시판 생성관리는 이 기능은 사용자단에서 UI를 사용할 일이 없기때문에, Read, Update를 1개로 사용.
+	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.GET)
+	public String updateBoardTypeForm(@RequestParam("board_type")String board_type, Model model) throws Exception {//수정폼1
+		model.addAttribute("boardTypeVO", boardTypeService.readBoardType(board_type));
+		//서식model.add~("jsp변수로담아서 view화면으로 보냄","서비스에서 쿼리실행한 데이터객체");
+		return "admin/bbs_type/bbs_type_update";//.jsp생략
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.POST)
+	public String updateBoardType(BoardTypeVO boardTypeVO) throws Exception {//수정처리1
+		boardTypeService.updateBoardType(boardTypeVO);
+		return "redirect:/admin/bbs_type/bbs_type_update?board_type="+boardTypeVO.getBoard_type();//수정한 이후 수정폼을 GET방식으로 이동
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_delete", method=RequestMethod.POST)
+	public String deleteBoardType(@RequestParam("board_type")String board_type) throws Exception {//삭제처리1
+		boardTypeService.deleteBoardType(board_type);//삭제서비스 호출(실행) 끝
+		return "redirect:/admin/bbs_type/bbs_type_list";//.jsp생략
+	}
+	//=============================================================
+	//아래 경로는 회원신규등록 폼을 호출하는 URL쿼리스트링으로 보낸것을 받을때는 GET방식으로 받습니다.
 	@RequestMapping(value="/admin/member/member_insert_form", method=RequestMethod.GET)
 	public String insertMemberForm(@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
 		
 		return "admin/member/member_insert";//.jsp는 생략
 	}
-	//아래 경로는 회원 신규등록을 처리 서비스를 호출하는 URL
+	//아래 경로는 회원신규등록을 처리하는 서비스를 호출하는 URL
 	@RequestMapping(value="/admin/member/member_insert", method=RequestMethod.POST)
 	public String insertMember(PageVO pageVO,MemberVO memberVO) throws Exception {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String rawPassword = memberVO.getUser_pw();//원시 패스워드 값
+		String rawPassword = memberVO.getUser_pw();//원시 패스워드값
 		String encPassword = passwordEncoder.encode(rawPassword);
 		memberVO.setUser_pw(encPassword);
 		memberService.insertMember(memberVO);
-		return "redirect:/admin/member/member_list";//.jsp 생략
+		return "redirect:/admin/member/member_list";//.jsp생략
 	}
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
@@ -94,7 +101,7 @@ public class AdminController {
 		//update 서비스만 처리하면 끝
 		//업데이트 쿼리서비스 호출하기 전 스프링시큐리티 암호화 적용합니다.
 		String rawPassword = memberVO.getUser_pw();
-		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래로직실행.
+		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래 로직실행.
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String encPassword = passwordEncoder.encode(rawPassword);
 			memberVO.setUser_pw(encPassword);
@@ -104,7 +111,7 @@ public class AdminController {
 		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
 		return "redirect:/admin/member/member_update_form?"+queryString;
 	}
-	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만
+	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만 
 	@RequestMapping(value="/admin/member/member_update_form", method=RequestMethod.GET)
 	public String updateMemberForm(MemberVO memberVO, Model model,@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
 		//이 메서드는 수정폼에 pageVO, memberVO 2개의 데이터객체를 jsp로 보냅니다.
