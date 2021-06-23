@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.IF_BoardService;
 import com.edu.service.IF_BoardTypeService;
@@ -50,7 +51,31 @@ public class AdminController {
 	
 	//게시물 수정처리는 POST로만 접근가능
 	@RequestMapping(value="/admin/board/board_update", method=RequestMethod.POST)
-	public String board_update(BoardVO boardVO, PageVO pageVO) throws Exception {
+	public String board_update(@RequestParam("file")MultipartFile[] files,BoardVO boardVO, PageVO pageVO) throws Exception {
+		//기존 등록 된 첨부파일 목록 구하기
+		List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
+		//1차원 배열의 크기는 .length
+		String[] save_file_names = new String[files.length];
+		String[] real_file_names = new String[files.length];
+		int idx = 0;
+		for(MultipartFile file:files) { //files[0], files[1]
+			if(file.getOriginalFilename() !="") {//전송 된 첨부파일이 있다면 실행
+				int sun = 0;
+				//아래 for 목적: jsp 폼에서 기존 1번 위치에 파일이 있으면, 기존 파일을 지우고, 신규파일을 덮어씀.
+				for(AttachVO file_name:delFiles) {//기존 파일을 가져와서 반복 지우기 로직
+					if(idx==sun) {
+						File target = new File(commonUtil.getUploadPath(),file_name.getSave_file_name());
+						if(target.exists()) {
+							target.delete();//물리적인 파일 지우는 명령
+						}
+					}
+					sun = sun + 1;
+				}//for - sun
+				//신규파일 업로드
+				save_file_names[idx] = commonUtil.fileUpload(file);//jsp폼에서 전송 된 파일
+				real_file_names[idx] = file.getOriginalFilename();//UI용 이름 임시저장
+			}//if(file.getOriginalFilename() !="")
+		}//for = idx
 		String rawContent = boardVO.getContent();
 		String secContent = commonUtil.unScript(rawContent);
 		boardVO.setContent(secContent);
