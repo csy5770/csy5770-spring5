@@ -59,7 +59,7 @@
               <div class="form-group">
                 <label for="exampleInputFile">첨부파일</label>
                 <c:forEach var="idx" begin="0" end="1">
-                <div class="input-group">
+                <div class="input-group div_file_delete">
                   <div class="custom-file">
                     <input name="file" type="file" class="custom-file-input" id="file0">
                     <label class="custom-file-label" for="file0">파일선택</label>
