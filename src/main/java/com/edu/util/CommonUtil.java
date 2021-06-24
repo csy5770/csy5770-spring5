@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,11 +46,24 @@ public class CommonUtil {
 	private IF_MemberService memberService;//스프링빈을 주입받아서(DI) 객체준비
 	
 	//첨부파일 업로드/다운로드/삭제/인서트/수정에 모두 사용될 저장경로를 1개지정해서 [전역]으로사용
-		@Resource(name="uploadPath")
-		private String uploadPath;//root-context 업로드경로 클래스빈의 id값을 받아서 String변수 입력
-		public String getUploadPath() {
-			return uploadPath;
-		}
+	@Resource(name="uploadPath")
+	private String uploadPath;//root-context 업로드경로 클래스빈의 id값을 받아서 String변수 입력
+	public String getUploadPath() {
+		return uploadPath;
+	}
+	
+	//다운로드 처리도 동일 페이지에서 결과 값만 반환받는 @ResponseBody 사용
+	@RequestMapping(value="/download", method=RequestMethod.GET)
+	@ResponseBody
+	public FileSystemResource download(@RequestParam("save_file_name") String save_file_name, @RequestParam("real_file_name") String real_file_name, HttpServletResponse response) throws Exception {
+		//FileSystemResource는 스프링 코어에서 제공하는 전용 파일처리 클래스
+		File file = new File(uploadPath + "/" + save_file_name);
+		response.setContentType("application/download; utf-8");//아래 한글,ppt 문서 등에서 한글내용이 깨지는 것을 방지하는 코드 추가
+		real_file_name = URLEncoder.encode(real_file_name); // IE에서 URL 한글일 때 에러방지 코드 추가
+		response.setHeader("Content-Disposition","attachment; filename="+real_file_name);
+		return new FileSystemResource(file);
+	}
+	
 	//페이지 이동 없이 같은 페이지에 결과 값만 반환하는 @ResponseBody
 	@RequestMapping(value="/image_preview", method=RequestMethod.GET)
 	@ResponseBody
@@ -91,7 +107,8 @@ public class CommonUtil {
 			break;
 		default:break;
 		}
-		//return new ResponseEntity<byte[]>(fileArray);//객체 생성시 초기값(rawData,)
+		
+		return new ResponseEntity<byte[]>(fileArray,headers,HttpStatus.CREATED); //객체 생성시 초기값(rawData,헤더정보,HTTP 상태값.)
 	}
 	//XSS 크로스사이트스크립트 방지용 코드로 파싱하는 메서드(아래)
 	public String unScript(String data) {
