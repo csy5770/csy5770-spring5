@@ -114,7 +114,7 @@
 <!-- 서머노트 웹에디터 실행(아래-개발자가 처리) -->
 <script>
 	$(document).ready(function(){
-		//$('#content_lbl').summernote();//기본실행. 이기본실을 개발자 커스터마이징 합니다.
+		$('#content_lbl').summernote();//기본실행. 이 기본실을 개발자 커스터마이징 합니다.
 		$('#content').summernote({
 			height:150,
 			lang:'ko-KR',
@@ -134,8 +134,11 @@
 			fontSizes: ['8','10','12','14','16','18','20','22','24','26','28','30'],
 			fontNamesIgnoreCheck: ['Nanum Gothic']
 		});
-		$("form[name='form_write']").on('submit',function(){
-			//if($('#content'))
+		$("form[name='form_write']").on('submit',function(event){
+			if($('#content').summernote('isEmpty')) {
+			alert('내용을 반드시 입력해야 합니다.');
+			event.preventDefault(); //submit 전송기능 사용 방지
+			}
 		});
 	});
 </script>
