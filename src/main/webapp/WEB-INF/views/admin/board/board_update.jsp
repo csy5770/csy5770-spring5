@@ -114,7 +114,7 @@
 <!-- 서머노트 웹에디터 실행(아래-개발자가 처리) -->
 <script>
 	$(document).ready(function(){
-		$('#content_lbl').summernote();//기본실행. 이 기본실을 개발자 커스터마이징 합니다.
+		//$('#content_lbl').summernote();//기본실행. 이 기본실행을 커스터마이징 함.
 		$('#content').summernote({
 			height:150,
 			lang:'ko-KR',
