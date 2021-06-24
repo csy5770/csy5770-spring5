@@ -1,6 +1,7 @@
 package com.edu.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -90,16 +91,16 @@ public class CommonUtil {
 		return memberCnt;//0.jsp 이렇게 작동하지 않습니다. 이유는 @ResponseBody때문이고, RestAPI는 값만 반환
 	}
 
-	//파일 업로드 메서드(Admin 컨트롤러에서 사용 + Home 컨트롤러에서도 사용)
-	public String fileUpload(MultipartFile file) {
-		// TODO UUID 클래스로 저장 될 고유식별(PK) 파일명을 생성 후 물리적으로 저장
+	//파일 업로드 공통 메서드(Admin컨트롤러에서 사용 + Home컨트롤러에서도 사용)
+	public String fileUpload(MultipartFile file) throws IOException {
+		// TODO UUID클래스로 저장될 고유식별(PK) 파일명을 생성 후 물리적으로 저장
 		String realFileName = file.getOriginalFilename();
-		// 폴더에 저장할 PK 파일명을 생성(아래)
-		UUID uid = UUID.randomUUID();//유니크 ID 값 생성
-		String saveFileName = uid.toString() + "." + StringUtils.getFilenameExtension(Path);
+		// 폴더에 저장할 PK파일명을 생성(아래)
+		UUID uid = UUID.randomUUID();//유니크ID값 생성
+		String saveFileName = uid.toString() + "." + StringUtils.getFilenameExtension(realFileName);
 		byte[] fileData = file.getBytes();
 		File target = new File(uploadPath, saveFileName);
-		FileCopyUtils.copy(fileData, target);//파일이 물리적으로 폴더에 저장 됨.
+		FileCopyUtils.copy(fileData, target);//파일이 물리적으로 폴더에 저장됨.
 		return saveFileName;
 	}
 }
