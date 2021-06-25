@@ -12,7 +12,7 @@ import com.edu.vo.ReplyVO;
  */
 public interface IF_ReplyDAO {
 	public void deleteReplyAll(Integer bno) throws Exception;
-	public void deleteReply(Integer rno) throws Exception;
+	public void deleteReply(ReplyVO replyVO) throws Exception;
 	public void updateReply(ReplyVO replyVO) throws Exception;
 	public void replyCountUpdate(Integer bno, int count) throws Exception;
 	public void insertReply(ReplyVO replyVO) throws Exception;//replyVO jsp폼에서
