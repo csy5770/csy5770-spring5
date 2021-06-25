@@ -52,6 +52,27 @@ public class AdminController {
 	@Inject
 	private IF_BoardDAO boardDAO;
 	
+	//게시물 등록을 POST로 호출
+	@RequestMapping(value="/admin/board/board_insert", method=RequestMethod.POST)
+	public String board_insert(@RequestParam("file")MultipartFile[] files, BoardVO boardVO) throws Exception {
+		//신규 등록이라서 기존 첨부파일 불러오는 로직이 필요 없음.
+		String[] save_file_names = new String[files.length];
+		String[] real_file_names = new String[files.length];
+		int index = 0;//첨부파일이 1개 이상일 때 반복 변수 사용.
+		for (MultipartFile file:files) {
+			if(file.getOriginalFilename() !="") { //첨부 파일이 있으면 실행
+				save_file_names[index] = commonUtil.fileUpload(file);//물리적 파일 저장.
+				real_file_names[index] = file.getOriginalFilename();//UI용 파일 이름.
+			}
+			index = index + 1; //index++
+		}
+		//신규등록 jsp폼에서 보내면 boardVO에 아래 file에 대한 임시 변수 값을 저장하는 로직
+		boardVO.setSave_file_names(save_file_names);
+		boardVO.setReal_file_names(real_file_names);
+		boardService.insertBoard(boardVO);//DB에 저장하는 서비스 호출(실행)
+		return "redirect:/admin/board/board_list";//데이터 중복전송 방지용 redirect 사용(새로고침사용 X)
+		//게시판 신규 등록 시 자동으로 page 1로 이동.
+	}
 	//게시물 등록 폼을 Get으로 호출합니다.
 	@RequestMapping(value="/admin/board/board_insert_form", method=RequestMethod.GET)
 	public String board_insert_form(@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
