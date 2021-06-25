@@ -5,5 +5,7 @@ package com.edu.vo;
  *
  */
 public class ReplyVO {
-
+	Integer rno;
+	String reply_text;
+	
 }
