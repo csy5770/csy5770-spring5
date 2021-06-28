@@ -15,6 +15,7 @@ import com.edu.vo.ReplyVO;
 /**
  * 이클래스는 sqlSession템플릿을 이용해서 쿼리를 실행하는 클래스입니다.
  * @author csy5770
+ *
  */
 @Repository
 public class ReplyDAOImpl implements IF_ReplyDAO{
@@ -61,9 +62,12 @@ public class ReplyDAOImpl implements IF_ReplyDAO{
 	}
 
 	@Override
-	public List<ReplyVO> selectReply(PageVO pageVO) throws Exception {
+	public List<ReplyVO> selectReply(Integer bno, PageVO pageVO) throws Exception {
 		// TODO sqlSession템플릿사용("매퍼쿼리명","매개변수명")
-		return sqlSession.selectList("replyMapper.selectReply", pageVO);
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("pageVO", pageVO);
+		paramMap.put("bno", bno);
+		return sqlSession.selectList("replyMapper.selectReply", paramMap);
 	}
 
 }
