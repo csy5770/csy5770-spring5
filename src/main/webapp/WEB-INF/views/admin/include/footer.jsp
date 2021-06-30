@@ -40,3 +40,9 @@
 <!-- <script src="/resources/admin/dist/js/demo.js"></script> -->
 </body>
 </html>
+<script>
+//왼쪽 메뉴 선택시 active 부트스트랩 클래스를 동적으로 추가하는 코드(아래)
+$(document).ready(function(){
+	
+});
+</script>
