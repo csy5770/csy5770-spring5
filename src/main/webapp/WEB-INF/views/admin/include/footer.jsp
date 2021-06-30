@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!--  이후 footer.jsp -->
+<!-- 이후 footer.jsp영역 -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
@@ -11,7 +11,7 @@
 
   <!-- Control Sidebar 오른쪽 바둑판베뉴클릭시 나오는 내용 -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- demo.js에서 출력할 내용이 존재, demo.js사용 안함. -->
+    <!-- demo.js에서 출력할 내용이 존재, demo.js사용않함. -->
     <div class="text-center mt-4">
     <h5>로그아웃</h5><hr class="mb-2"/>
     <button type="button" class="btn btn-primary" id="btn_logout">로그아웃</button>
@@ -41,8 +41,15 @@
 </body>
 </html>
 <script>
-//왼쪽 메뉴 선택시 active 부트스트랩 클래스를 동적으로 추가하는 코드(아래)
+//왼쪽메뉴선택시 active 부트스트랩 클래스를 동적으로 추가하는 코드(아래)
 $(document).ready(function(){
-	
+	//현재 선택한 url값을 기준으로 지정
+	var current = location.pathname;//현재 URL경로를 추출.
+	//alert(current);//url값을 확인 파싱(분해) 0/admin/member/member_list
+	var current2 = current.split("/")[2];//위 current변수값을 /로 분해해서 배열로 만든후 3번째
+	// 3번째 배열값 추출
+	//alert(current2);//member,bbs_type,board
+	//제이쿼리의 반복문 each: 영역.each(구현내용)
+	$(".nav-treeview li a").each(function(){});
 });
-</script>
+</script>   
