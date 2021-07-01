@@ -22,7 +22,7 @@ $(document).ready(function() {
 	$('.rollplay a').click(function(){
 		$(this).parent().hide();// a태그의 부모 rollplay영역 입니다.
 		$('.rollstop').css('display','inline-block');
-		play_w('right');//3초마다 슬라이드 이미지 액션이 발생합니다.
+		play_w('right');//3초마다 슬라이드 이미지 액션일 발생합니다.
 
 	});
 	$('.rollingbtn li.seq a').each(function(index){
