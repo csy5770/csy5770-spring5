@@ -22,13 +22,13 @@ import com.edu.vo.MemberVO;
  * 이 클래스는 스프링시큐리티의 /login처리한 결과를 받아서 /login_success
  * 를 처리하는 클래스 입니다. 
  * @author csy5770
- *
  */
 @Controller
 public class LoginController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	//security-context에서 처리한 ID,암호 비교쿼리가 실행된 결과가 Authentication에 저장된 결과를 사용합니다.
 	@RequestMapping(value="/login_success", method=RequestMethod.GET)
 	public String login_success(HttpServletRequest request, RedirectAttributes rdat) throws Exception {
 		//request의 목적: 세션객체를 만들기 위해서(로그인정보를 화면이 이동하더라도 유지하기 위해서)
@@ -39,7 +39,7 @@ public class LoginController {
 		String levels = "";//권한이 들어갈 변수
 		Boolean enabled = false;//로그인체크가 들어가 들어가 변수(true=아이디/암호 비교성공)
 		//principal객체는 UserDetails객체가 추출되고, enabled라는 인증결과가 존재합니다.
-		Object principal = authentication.getPrincipal();//ID,암호 비교쿼리가 실행됩니다.
+		Object principal = authentication.getPrincipal();
 		if(principal instanceof UserDetails) {//위 결과 principal 객체에 UserDetails 있으면
 			enabled = ((UserDetails) principal).isEnabled();//true,false
 			//위 인증결과로 로그인 체크를 합니다. 
@@ -73,7 +73,7 @@ public class LoginController {
 			MemberVO memberVO = memberService.readMember(userid);
 			session.setAttribute("session_username", memberVO.getUser_name());
 		}
-		rdat.addFlashAttribute("mag", "로그인");//로그인 성공여부를 jsp페이지로 보내주는 변수생성.
+		rdat.addFlashAttribute("msg", "로그인");//로그인 성공여부를 jsp페이지로 보내주는 변수생성.
 		return "redirect:/";
 	}
 }
