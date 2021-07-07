@@ -200,50 +200,52 @@ input::placeholder { color: #999; } /* IE(Internet Explore)브라우저용 스�
     width: inherit;
     }
 }
+
 /* 게시판 글보기 영역 */
 .bbsview_list {
-	padding-bottom: 30px;
-	border-top: 2px solid #384d75;
-	text-align: left;
+    padding-bottom: 30px;
+    border-top: 2px solid #384d75;
+    text-align: left;
 }
 .bbsview_list li {
-	box-sizing: border-box;
-	padding: 0 15px;
-	border-bottom: 1px solid #ccc;
-	color: #666;
-	font-size: 14px;
-	line-height: 20px;
+    box-sizing: border-box;
+    padding: 0px 15px;
+    border-bottom: 1px solid #ccc;
+    color: #666;
+    font-size: 14px;
+    line-height: 20px;
 }
 .bbsview_list .bbs_title {
-	width: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	height: 50px;
-	line-height: 50px;
-	font-weight: bold;
-	font-size: 16px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 16px;
 }
 .bbsview_list .bbs_hit {
-	overflow: hidden;
-	height: 40px;
-	line-height: 40px;
-	float: left;
-	width: 50%;
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    width: 50%;
 }
 .bbsview_list .bbs_date {
-	float: left;
-	height: 40px;
-	line-height: 40px;
-	width: 50%;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    width: 50%;
 }
 .bbsview_list .bbs_content {
-    clear: both; /* float:left,right 기능을 해제*/
-    min-height: 200px;/* 내용이 비었더라도 최소 높이 200px을 가짐*/
+    clear: both; /* float:left,right 기능을 해제합니다. */
+    min-height: 200px;/* 내용이 비었더라도 최소 높이 200px 자리를 차지합니다. 단, 내용이 많으면 200이상으로 자리를 차지합니다. */
     padding: 20px 15px !important;
 }
-.btn_bbs { /*모바일전용*/
-    margin-bottom: 5px;
+.btn_bbs { /* 모바일 전용 */
+	border-style:none;
+    margin-bottom: 0px;
     display: inline-block;
     width: 100%;
     height: 35px;
@@ -263,13 +265,14 @@ input::placeholder { color: #999; } /* IE(Internet Explore)브라우저용 스�
         text-align: center;
     }
 }
+
 /* 게시판 글쓰기 폼 */
 .appForm {
-	margin:20px auto; /*좌우로 가운데 정렬시 0 auto*/
+	margin:20px auto; /* 좌우로 가운데 정렬시 0 auto */
 	text-align: left;
 }
-.appForm legend { font-size: 0px; } /* 시각장애인용 처리: 웹접근성*/
-.pilsoo_item::before { /* before 가상요소는 pilsoo_item 클래스 영역의 앞부분에 내용 들어감*/
+.appForm legend { font-size: 0px; } /* 시각장애인용 처리:웹접근성 처리 */
+.pilsoo_item::before { /* before가상요소는 pilsoo_item클래스영역의 앞부분에 내용들어감 */
 	content: '*';
 	display: inline-block;
 	position: absolute;
@@ -313,7 +316,8 @@ input::placeholder { color: #999; } /* IE(Internet Explore)브라우저용 스�
 }
 .app_content input {
 	border: none;
-	/* width: inherit; 부모 영역 input태그의 너비값을 상속 */
+	/* width: inherit; */
+    /* 부모 영역(브라우저기본값)의 input태그의 너비값을 상속 받음=width값을 초기화한다. */
 	box-sizing: border-box;
 	display: inline-block;
 	height: 45px;
@@ -321,23 +325,23 @@ input::placeholder { color: #999; } /* IE(Internet Explore)브라우저용 스�
 	line-height: normal;
 	font-size: 15px;
 }
-.app_content textarea {
+.appForm textarea {
 	height: 130px;
-	box-sizing: border-box;
+	box-sizing: border-box;/* 테두리까지 너비값에 포함시킴 100% 없으면 100%+2px */
 	padding: 10px;
 	font-size: 15px;
 	letter-spacing: -1px;
 	color: #444;
 	border: none;
 }
-.appForm textarea::placeholder {color: #999;} /* 최신브라우저에 적용*/
-textarea:-ms-input-placeholder {color: #999;} /* ms사 브라우저에 적용 최소 현재는 IE 10이상 표준 */
+.appForm textarea::placeholder { color: #999; } /* 최신브라우저에 적용 */
+textarea:-ms-input-placeholder { color: #999; } /* ms사 브라우저에 적용 최소 현재는 IE10이상 표준 */
 .btn_baseColor {
 	margin-top: 10px;
 }
 /* //게시판 글쓰기 폼 */
 @media all and (min-width:801px) {
-	/* 글쓰기 폼 스타일 */
+    /* 글쓰기 폼 스타일 */
 	.app_list .tit_lbl { width: 20%; }
 	.app_list .app_content {
 		width: 79%;
