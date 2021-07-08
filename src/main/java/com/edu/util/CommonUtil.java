@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,14 +55,14 @@ public class CommonUtil {
 	public String getUploadPath() {
 		return uploadPath;
 	}
-	
-	//첨부파일 개별삭제 Ajax로 처리, @ResponseBody 사용
+
+	//첨부파일 개별삭제 Ajax로 받아서 처리, @ResponseBody사용
 	@RequestMapping(value="/file_delete", method=RequestMethod.POST)
 	@ResponseBody
-	public String file_delete(@RequestParam("save_file_name")String save_file_name) {//Ajax는 예외처리를 스프링에 throws 하지 않고, try~catch 문으로 처리.
-		String result = "";//Ajax로 보내는 값 변수
+	public String file_delete(@RequestParam("save_file_name")String save_file_name) { //Ajax는 예외처리를 스프링에 던지지 않고, try~catch문으로 처리.
+		String result = "";//Ajax로 보내는 값변수
 		try {
-			boardDAO.deleteAttach(save_file_name);//DB에서 삭제
+			boardDAO.deleteAttach(save_file_name);
 			File target = new File(uploadPath + "/" + save_file_name);
 			if(target.exists()) {
 				target.delete();
@@ -70,50 +71,49 @@ public class CommonUtil {
 		} catch (Exception e) {
 			result = "fail: " + e.toString();
 		}
-		
-		return result;//Ajax에서 바로 확인 가능.
+		return result;//Ajax에서 바로확인 가능
 	}
-	//다운로드 처리도 동일 페이지에서 결과 값만 반환받는 @ResponseBody 사용
+	//다운로드 처리도 같은 페이지에서 결과값만 반환받는 @ResponseBody 사용
 	@RequestMapping(value="/download", method=RequestMethod.GET)
 	@ResponseBody
-	public FileSystemResource download(@RequestParam("save_file_name") String save_file_name, @RequestParam("real_file_name") String real_file_name, HttpServletResponse response) throws Exception {
-		//FileSystemResource는 스프링 코어에서 제공하는 전용 파일처리 클래스
+	public FileSystemResource download(@RequestParam("save_file_name")String save_file_name, @RequestParam("real_file_name")String real_file_name, HttpServletResponse response) throws Exception {
+		//FileSyste...은 스프링 코어에서 제공하는 전용 파일처리 클래스
 		File file = new File(uploadPath + "/" + save_file_name);
-		response.setContentType("application/download; utf-8");//아래 한글,ppt 문서 등에서 한글내용이 깨지는 것을 방지하는 코드 추가
-		real_file_name = URLEncoder.encode(real_file_name); // IE에서 URL 한글일 때 에러방지 코드 추가
-		response.setHeader("Content-Disposition","attachment; filename="+real_file_name);
+		response.setContentType("application/download; utf-8");//아래한글,ppt문서등에서 한글내용이 깨지는 것을 방지하는 코드추가
+		real_file_name = URLEncoder.encode(real_file_name);//ie에서 URL한글일때 에러발생방시 코드 추가
+		response.setHeader("Content-Disposition", "attachment; filename=" + real_file_name);
 		return new FileSystemResource(file);
 	}
 	
-	//페이지 이동 없이 같은 페이지에 결과 값만 반환하는 @ResponseBody
+	//페이지이동이 아닌 같은 페이지에 결과값만 반환하는 @ResponseBody 
 	@RequestMapping(value="/image_preview", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<byte[]> imagePreview(@RequestParam("save_file_name") String save_file_name, HttpServletResponse response) throws Exception {
-		//파일을 입출력할 때 파일을 byte 형태로 입출력에 통로 스트림이 발생.
-		FileInputStream fis = null;
+		//파일을 입출력할때는 파일을 byte(이진01000101010)형식으로 입출력할때 발생되는 통로 스트림이 발생
+		FileInputStream fis = null;//입력통로
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();//출력통로
-		fis = new FileInputStream(uploadPath+ "/" + save_file_name);
+		fis = new FileInputStream(uploadPath + "/" + save_file_name);
 		int readCount = 0;
-		byte[] buffer = new byte[1024]; //임시 저장소
-		byte[] fileArray = null;
-		//반복문: 목적, fis 입력받는 save_file_name 바이트 값이(배열) -1일때 까지 반복.
-		while((readCount = fis.read(buffer)) != -1) {
-			//입력통로 fis에서 출력통로로 baos 보냄. 파일 입출력은 byte 단위로만 가능.
+		byte[] buffer = new byte[1024];//임시저장소 크기 지정 1K
+		byte[] fileArray = null;//출력스트림결과 저장하는 공간
+		//반복문:목적, fis 입력받는 save_file_name 바이트값이(배열) -1일때 까지 반복
+		while((readCount=fis.read(buffer)) != -1) {
+			//입력통로fis에서 출력통로통로 baos보냅니다.이유는 파일입출력은 byte단위로만 가능.
 			baos.write(buffer, 0, readCount);//(rawData, 종료조건, 반복횟수)
-			//결과는 baos에 누적 된 결과가 입력 됨 - jsp로 전송하면 됨.
+			//결과는 baos에 누적된 결과가 들어갑니다. - jsp로 보내주면 됩니다.
 		}
-		fileArray = baos.toByteArray(); //baos 클래스를 byte[] 배열로 형변환.
+		fileArray = baos.toByteArray();//baos 클래스를 byte[] 배열로 형변환 합니다.
 		fis.close();//메모리 초기화
 		baos.close();//메모리 초기화
-		//fileArray 값을 jsp로 보내주는 준비작업, final 메서드에만 사용하겠다고 명시
+		//fileArray값을 jsp로 보내주는 준비작업, final 이 메서드에만 사용하겠다고 명시.
 		final HttpHeaders headers = new HttpHeaders();
-		//크롬 개발자도구>네트워크>image_preview 클릭> 헤더 탭 확인
+		//크롬 개발자도구>네트워크>image_preview클릭>헤더탭확인
 		String ext = FilenameUtils.getExtension(save_file_name);
-		//이미지 확장자에 따라서 매칭되는 헤더 값이 변해야지만, 이미지 미리보기가 정상으로 출력.
-		switch(ext.toLowerCase()) {//선택조건: 확장자를 소문자로 바꿔서 비교
+		//이미지 확장자에 따라서 매칭되는 헤더값이 변해야지만, 이미지 미리보기가 정상으로 보입니다.
+		switch(ext.toLowerCase()) {//선택조건:확장자를 소문자로 바꿔서 비교
 		case "png":
 			headers.setContentType(MediaType.IMAGE_PNG);
-			break;//스위치문 종료			
+			break;//스위치문 빠져나가기
 		case "jpg":
 			headers.setContentType(MediaType.IMAGE_JPEG);
 			break;
@@ -129,7 +129,7 @@ public class CommonUtil {
 		default:break;
 		}
 		
-		return new ResponseEntity<byte[]>(fileArray,headers,HttpStatus.CREATED); //객체 생성시 초기값(rawData,헤더정보,HTTP 상태값.)
+		return new ResponseEntity<byte[]>(fileArray,headers,HttpStatus.CREATED);//객체생성시 초기값(rawData,헤더정보,HTTP상태값)
 	}
 	//XSS 크로스사이트스크립트 방지용 코드로 파싱하는 메서드(아래)
 	public String unScript(String data) {
@@ -150,7 +150,7 @@ public class CommonUtil {
         ret = ret.replaceAll("</(F|f)(O|o)(R|r)(M|m)", "&lt;form");
 		return ret;
 	}
-
+	
 	//첨부파일이 이미지인지 아닌지 확인하는 데이터생성
 	private ArrayList<String> checkImgArray = new ArrayList<String>() {
 		{
@@ -165,7 +165,7 @@ public class CommonUtil {
 		return checkImgArray;
 	}
 	
-	//RestAPI서버 맛보기ID중복체크(제대로 만들면 @RestController 사용)
+	//관리자단에서 사용:RestAPI서버 맛보기ID중복체크(제대로 만들면 @RestController 사용)
 	@RequestMapping(value="/id_check", method=RequestMethod.GET)
 	@ResponseBody //반환받은 값의 헤더값을 제외하고, 내용(body)만 반환하겠다는 명시
 	public String id_check(@RequestParam("user_id")String user_id) throws Exception {
@@ -179,6 +179,19 @@ public class CommonUtil {
 			}
 		}
 		return memberCnt;//0.jsp 이렇게 작동하지 않습니다. 이유는 @ResponseBody때문이고, RestAPI는 값만 반환
+	}
+	//사용자단에서 사용: JsonView방식으로 RestApi를 구현실습
+	@RequestMapping(value="/id_check_2010",method=RequestMethod.GET)
+	public String id_check_2010(@RequestParam("user_id")String user_id,Model model) throws Exception {
+		String memberCnt = "1";//중복ID가 있는것을 기본값으로 지정
+		if(!user_id.isEmpty()) {
+			MemberVO memberVO = memberService.readMember(user_id);
+			if(memberVO == null) {//중복ID가 없다면
+				memberCnt = "0";
+			}
+		}
+		model.addAttribute("memberCnt", memberCnt);
+		return "jsonView";//jsp파일명 대신에 servlet에서 정의한 스프링빈 ID명을 적으면, json객체로 결과를 반환합니다.
 	}
 
 	//파일 업로드 공통 메서드(Admin컨트롤러에서 사용 + Home컨트롤러에서도 사용)
