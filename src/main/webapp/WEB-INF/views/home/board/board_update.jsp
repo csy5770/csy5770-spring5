@@ -33,16 +33,23 @@
                   <label for="file_lbl" class="tit_lbl">첨부파일</label>
                   <br>
                   <c:forEach begin="0" end="1" step="1" var="idx">
-                  <div class="custom-file" style="width:50%;margin:0 2%;">
+                  <div class="custom-file" style="width:96%;margin:0 2%;">
                      <input type="file" name="file" class="custom-file-input" id="customFile_${idx}">
                      <label class="custom-file-label" for="customFile" style="color:#999;">파일첨부${idx}</label>
-                     ${boardVO.real_file_names[idx]}
-                     <button class="btn btn-info btn_filedelete">삭제</button>
+                     <div class="text-right" style="margin-bottom:10px;">
+                     <c:if test="${!empty boardVO.save_file_names[idx]}">
+		                 <c:url var="url" value="/download">
+		            		 <c:param name="save_file_name" value="${boardVO.save_file_names[idx]}" />
+		            		 <c:param name="real_file_name" value="${boardVO.real_file_names[idx]}"></c:param>
+		            	 </c:url>
+		            	 <!-- 위처럼 c:url로 쿼리스트링을 처리하면 한글이 인코딩 되어서 전송됨. -->
+		                 <a href="${url}">${boardVO.real_file_names[idx]}</a>
+		                 <button type="button" class="btn btn-info btn_filedelete">삭제</button>
+            	  	 </c:if>                     
+                     </div>
                   </div>
                   <div style="height:10px;"></div>
                   </c:forEach>
-                  
-                  
                </li>
             </ul>
             <p class="btn_line">
