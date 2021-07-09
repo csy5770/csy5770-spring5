@@ -72,8 +72,8 @@ public class HomeController {
 		//로그인한 세션ID와 게시물의 boardVO.writer사용자와 비교해서 같으면 계속,틀리면 멈춤
 		HttpSession session = request.getSession();
 		if(!boardVO.getWriter().equals(session.getAttribute("session_userid"))) {
-			
 			rdat.addFlashAttribute("msgError", "게시물은 본인글만 수정 가능합니다.");
+			
 			return "redirect:/home/board/board_view?bno="+boardVO.getBno()+"&page="+pageVO.getPage();//본인ID의 글이 아닐때 뷰페이지로 이동
 		}//else로 묶을 필요가 없습니다.왜? 위 return을 만나면, 이후 실행이 않되고, 메서드가 종료됨.
 		
