@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,12 +23,22 @@ import com.edu.vo.MemberVO;
  * 이 클래스는 스프링시큐리티의 /login처리한 결과를 받아서 /login_success
  * 를 처리하는 클래스 입니다. 
  * @author csy5770
+ *
  */
 @Controller
 public class LoginController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	//HomeController에 있던 /login_form을 네아로 로그인URL 생성때문에 여기로 이동.
+	@RequestMapping(value="/login_form",method=RequestMethod.GET)
+	public String login_form(Model model,HttpSession session) throws Exception {
+		//네이버 인증 Url구하기:세션은 서버에 클라이언트접속정보를 저장하는 공간이 세션입니다. 
+		String naverAuthUrl = "";
+		
+		model.addAttribute("url", null);
+		return "home/login";//.jsp생략
+	}
 	//security-context에서 처리한 ID,암호 비교쿼리가 실행된 결과가 Authentication에 저장된 결과를 사용합니다.
 	@RequestMapping(value="/login_success", method=RequestMethod.GET)
 	public String login_success(HttpServletRequest request, RedirectAttributes rdat) throws Exception {
@@ -58,7 +69,7 @@ public class LoginController {
 			if(authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ANONYMOUS")).findAny().isPresent()) {
 				levels = "ROLE_ANONYMOUS";//권한_무명
 			}
-			if(authorities.stream().filter(o -> o.getAuthority().equals("ROLE_USER")).findAny().isPresent()) {
+			if( authorities.stream().filter((o) -> o.getAuthority().equals("ROLE_USER")).findAny().isPresent() ) {
 				levels = "ROLE_USER";//권한_일반사용자
 			}
 			if(authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent()) {
